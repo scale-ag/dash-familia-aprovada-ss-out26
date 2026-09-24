@@ -2,6 +2,8 @@
 const DATA = JSON.parse(document.getElementById('payload').textContent);
 const LEADS = DATA.leads, META = DATA.meta, SALES = DATA.sales||[], B = DATA.build;
 const TAX = B.tax_factor || 1.0;
+const SCORING = B.scoring || {};
+const MQL_LABEL = 'MQLs (faixas '+((SCORING.mql_faixas||['A','B']).join('+'))+')';
 
 /* ---------------- format ---------------- */
 const nf0=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:0});
@@ -599,7 +601,7 @@ function renderGeralCore(ids){
     ['Cliques', intf(t.cl), [['CTR',pct(dv.ctr)],['CPC',brl(dv.cpc)]]],
     ['Page Views', intf(t.pv), [['CR',pct(dv.cr)],['CPV',brl(dv.cpv)]]],
     ['Leads', intf(t.leads), [['CPL',brl(dv.cpl)],['ConvLP',pct(dv.convlp)]]],
-    ['MQLs (critério a definir)', intf(t.mqls), [['Tx‑MQL',pct(dv.tx)],['CPMQL',brl(dv.cpmql)]], false, 'hl-mql'],
+    [MQL_LABEL, intf(t.mqls), [['Tx‑MQL',pct(dv.tx)],['CPMQL',brl(dv.cpmql)]], false, 'hl-mql'],
     ['Vendas', s.vendas!=null?intf(s.vendas):NA, [['ConvMQL',s.convmql!=null?pct(s.convmql):NA],['CAC',s.cac!=null?brl(s.cac):NA]], s.vendas==null],
     ['Receita', s.receita!=null?brl(s.receita):NA, [['ROAS',s.roasReceita!=null?numf(s.roasReceita):NA],['Ticket',s.tmReceita!=null?brl(s.tmReceita):NA]], s.receita==null, 'hl-fat'],
     ['Faturamento', s.fat!=null?brl(s.fat):NA, [['ROAS',s.roas!=null?numf(s.roas):NA],['Ticket',s.tm!=null?brl(s.tm):NA]], s.fat==null, 'hl-fat'],
@@ -633,7 +635,7 @@ function renderGeralCore(ids){
   const srcName={meta:'Meta Ads',google:'Google Ads',org:'Orgânico',outros:'Outros'};
   const bySrc={}; fL.forEach(l=>{const k=srcName[l.src]||l.src; bySrc[k]=(bySrc[k]||0)+1;});
   hbar(ids.source, Object.entries(bySrc).map(([label,leads])=>({label,leads})), x=>x.leads, ()=>cvar('--chart-leads'));
-  // por posicionamento (utm_term; verde = MQL, cinza = não-MQL; "Não informado" sempre por último)
+  // por faixa do Lead Scoring (verde = MQL, cinza = não-MQL)
   const byB={}; fL.forEach(l=>{byB[l.bucket]=byB[l.bucket]||{label:l.bucket,leads:0,q:l.q}; byB[l.bucket].leads++;});
   const bArr=Object.values(byB).sort((a,b)=>(a.label==='Não informado')-(b.label==='Não informado')||b.leads-a.leads);
   hbar(ids.bucket, bArr, x=>x.leads, x=>x.q?cvar('--bar-q'):cvar('--bar-noq'));
@@ -984,7 +986,7 @@ function renderMeta(){
     ['Cliques', intf(t.cl), [['CTR',pct(dv.ctr)],['CPC',brl(dv.cpc)]]],
     ['Page Views', intf(t.pv), [['CR',pct(dv.cr)],['CPV',brl(dv.cpv)]]],
     ['Leads', intf(t.leads), [['CPL',brl(dv.cpl)],['ConvLP',pct(dv.convlp)]]],
-    ['MQLs (critério a definir)', intf(t.mqls), [['Tx‑MQL',pct(dv.tx)],['CPMQL',brl(dv.cpmql)]], false, 'hl-mql'],
+    [MQL_LABEL, intf(t.mqls), [['Tx‑MQL',pct(dv.tx)],['CPMQL',brl(dv.cpmql)]], false, 'hl-mql'],
     ['Vendas', s.vendas!=null?intf(s.vendas):NA, [['ConvMQL',s.convmql!=null?pct(s.convmql):NA],['CAC',s.cac!=null?brl(s.cac):NA]], s.vendas==null],
     ['Receita', s.receita!=null?brl(s.receita):NA, [['ROAS',s.roasReceita!=null?numf(s.roasReceita):NA],['Ticket',s.tmReceita!=null?brl(s.tmReceita):NA]], s.receita==null, 'hl-fat'],
     ['Faturamento', s.fat!=null?brl(s.fat):NA, [['ROAS',s.roas!=null?numf(s.roas):NA],['Ticket',s.tm!=null?brl(s.tm):NA]], s.fat==null, 'hl-fat'],
@@ -1063,9 +1065,9 @@ function renderMeta(){
   const q=fL.filter(l=>l.q).sort((a,b)=>(a.d<b.d?1:-1));
   document.getElementById('qCount').textContent=q.length+' leads';
   renderTable({id:'tQual',
-    cols:[{key:'d',label:'Data',type:'date'},{key:'nm',label:'Nome',type:'dim'},{key:'prof',label:'Anúncio',type:'dim'},
-      {key:'bucket',label:'Posicionamento',type:'dim'},{key:'camp',label:'Campanha',type:'dim',big:true},{key:'em',label:'E‑mail',type:'dim',w:200},{key:'ph',label:'Telefone',type:'dim',w:110}],
-    rows:q.map((l,i)=>({k:'q'+i, cells:{d:l.d,nm:l.nm,prof:l.prof,bucket:l.bucket,camp:l.camp,em:l.em,ph:l.ph}}))});
+    cols:[{key:'d',label:'Data',type:'date'},{key:'nm',label:'Nome',type:'dim'},{key:'prof',label:'Anúncio',type:'dim'},{key:'sc',label:'Pontos',type:'int'},
+      {key:'bucket',label:'Faixa',type:'dim'},{key:'camp',label:'Campanha',type:'dim',big:true},{key:'em',label:'E‑mail',type:'dim',w:200},{key:'ph',label:'Telefone',type:'dim',w:110}],
+    rows:q.map((l,i)=>({k:'q'+i, cells:{d:l.d,nm:l.nm,prof:l.prof,sc:l.sc,bucket:l.bucket,camp:l.camp,em:l.em,ph:l.ph}}))});
 }
 
 /* ---------------- date presets ---------------- */
@@ -1156,18 +1158,133 @@ function ppApply(){
   ppClose(); syncDateInputs(); renderAll();
 }
 
+
+/* ---------------- PÁGINA: LEAD SCORING MFA ----------------
+   Spec "Lead Scoring MFA": score/faixa de cada lead vêm prontos do build.py
+   (l.sc / l.fx). Aqui só agregamos por grupo — a MESMA fórmula roda para o
+   total, um dia, uma campanha, um conjunto ou um criativo:
+     gasto_real        = gasto do Meta × 1,1381 (imposto SEMPRE, independe do toggle)
+     receita_projetada = Σ leads_da_faixa × valor_por_lead_da_faixa
+     ROAS_projetado    = receita_projetada ÷ gasto_real
+     custo_por_lead_X  = gasto_real ÷ leads_faixa_X                              */
+const FX=['A','B','C','D'];
+const SC_VAL=SCORING.valor_por_lead||{A:962,B:309,C:117,D:80};
+const SC_CMAX=SCORING.custo_maximo_por_lead||{A:321,B:103,C:39,D:27};
+const SC_MIX=SCORING.mix_referencia||{A:.25,B:.30,C:.27,D:.18};
+const SC_MIN=SCORING.faixas||{A:29,B:18,C:9,D:0};
+const SC_ROAS_MIN=SCORING.roas_minimo||3;
+const SC_SAMPLE_MIN=10;   // leads mínimos p/ o sinal de conjunto/criativo deixar de ser "amostra pequena"
+function scNew(){ return {sp:0,leads:0,ps:0,A:0,B:0,C:0,D:0}; }
+function scAdd(a,l){ a.leads++; a.ps+=l.ps||0; a[l.fx||'D']++; }
+function scAgg(fL,fM,keyFn){ const m={}; const g=k=>m[k]||(m[k]=scNew());
+  fM.forEach(r=>{ const k=keyFn(r); if(k==null) return; g(k).sp+=r.sp; });
+  fL.forEach(l=>{ const k=keyFn(l); if(k==null) return; scAdd(g(k),l); });
+  return m; }
+function scDerive(a){
+  const g=a.sp*TAX, rec=FX.reduce((s,f)=>s+a[f]*SC_VAL[f],0), o={gasto:g, leads:a.leads, receita:rec,
+    roas:g>0?rec/g:null, cpl:a.leads?g/a.leads:null, ps:a.leads?a.ps/a.leads:null};
+  FX.forEach(f=>{ o[f]=a[f]; o['p'+f]=a.leads?a[f]/a.leads:null; o['cpl'+f]=a[f]?g/a[f]:null; });
+  return o; }
+/* sinal do grupo (seção 10 da spec) */
+function scSignal(d){
+  if(!d.gasto) return '<span class="rel-chip">Sem gasto</span>';
+  if(d.roas!=null && d.roas<SC_ROAS_MIN) return '<span class="rel-chip c-red">Cortar / trocar criativo</span>';
+  if(d.cplA!=null && d.cplA>SC_CMAX.A) return '<span class="rel-chip c-red">Cortar · lead A caro</span>';
+  if(d.leads<SC_SAMPLE_MIN) return '<span class="rel-chip c-yellow">Amostra pequena</span>';
+  if(d.pA!=null && d.pA<SC_MIX.A/2) return '<span class="rel-chip c-yellow">Volume C/D · não escalar por CPL</span>';
+  if(d.roas>=SC_ROAS_MIN) return '<span class="rel-chip c-green">Escalar · respeitar teto</span>';
+  return '<span class="rel-chip">Observar</span>'; }
+const scRoasCls=k=>r=>{ const v=r.cells[k]; return v==null||!isFinite(v)?'':(v>=SC_ROAS_MIN?'sc-good':'sc-bad'); };
+const scCplCls=f=>r=>{ const v=r.cells['cpl'+f]; return v==null||!isFinite(v)?'':(v<=SC_CMAX[f]?'sc-good':'sc-bad'); };
+function scCols(dimKey,dimLabel,dimType,signal){
+  const c=[{key:dimKey,label:dimLabel,type:dimType,big:dimType==='dim'}];
+  if(dimType==='date') c.push({key:'wd',label:'Dia',type:'dim',w:70});
+  c.push({key:'gasto',label:'Gasto real',type:'brl',heat:'gasto'},{key:'leads',label:'Leads',type:'int',heat:'leads'},
+    {key:'cpl',label:'CPL',type:'brl'});
+  FX.forEach(f=>c.push({key:f,label:f,type:'int'}));
+  FX.forEach(f=>c.push({key:'p'+f,label:'% '+f,type:'pct'}));
+  c.push({key:'cplA',label:'Custo/lead A',type:'brl',cls:scCplCls('A')},
+    {key:'receita',label:'Receita proj.',type:'brl'},{key:'roas',label:'ROAS proj.',type:'num',heat:'roas',cls:scRoasCls('roas')},
+    {key:'ps',label:'% c/ pesquisa',type:'pct'});
+  if(signal) c.push({key:'sig',label:'Sinal',type:'html',w:210});
+  return c; }
+function scRows(m,dimKey,signal){ return Object.entries(m).map(([k,a])=>{ const d=scDerive(a);
+  const cells={...d,[dimKey]:k}; if(dimKey==='date') cells.wd=weekday(k); if(signal) cells.sig=scSignal(d);
+  return {k,cells}; }); }
+function scTotal(fL,fM){ const a=scNew(); fM.forEach(r=>a.sp+=r.sp); fL.forEach(l=>scAdd(a,l)); return a; }
+function scTable(id,fL,fM,dimKey,dimLabel,dimType,keyFn,signal){
+  const m=scAgg(fL,fM,keyFn), rows=scRows(m,dimKey,signal);
+  if(dimType==='date') rows.sort((a,b)=>a.k<b.k?1:-1); else rows.sort((a,b)=>(b.cells.gasto-a.cells.gasto)||(b.cells.leads-a.cells.leads));
+  const tot=scDerive(scTotal(fL,fM)); tot[dimKey]=dimType==='date'?null:'Total Geral'; tot.wd=''; if(signal) tot.sig='';
+  renderTable({id, cols:scCols(dimKey,dimLabel,dimType,signal), rows, total:tot, center:true}); }
+function scDailyChart(id,fL,fM){
+  destroy(id); const el=document.getElementById(id); if(!el) return;
+  const m=scAgg(fL,fM,r=>r.d), days=Object.keys(m).sort(), mut=cmuted(), gr=cgrid();
+  const col={A:cvar('--fx-a'),B:cvar('--fx-b'),C:cvar('--fx-c'),D:cvar('--fx-d')};
+  const ds=FX.map(f=>({type:'bar',label:'Faixa '+f,data:days.map(d=>m[d][f]),backgroundColor:col[f],stack:'fx',yAxisID:'y',order:2}));
+  ds.push({type:'line',label:'ROAS proj.',data:days.map(d=>{const r=scDerive(m[d]).roas; return r==null?null:+r.toFixed(2);}),
+    borderColor:cink(),backgroundColor:cink(),yAxisID:'y1',borderWidth:2,pointRadius:3,spanGaps:true,tension:.25,order:0});
+  ds.push({type:'line',label:'ROAS mínimo',data:days.map(()=>SC_ROAS_MIN),borderColor:cvar('--bad'),borderDash:[6,4],
+    borderWidth:1.5,pointRadius:0,yAxisID:'y1',order:1});
+  charts[id]=new Chart(el,{data:{labels:days.map(d=>d.slice(5)),datasets:ds},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{color:cink(),boxWidth:10,usePointStyle:true,font:{size:11}}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.dataset.yAxisID==='y1'?numf(c.raw):intf(c.raw))}}},
+      scales:{x:{stacked:true,ticks:{color:mut,font:{size:10}},grid:{display:false}},
+        y:{stacked:true,beginAtZero:true,ticks:{color:mut,precision:0,font:{size:10}},grid:{color:gr},title:{display:true,text:'Leads',color:mut,font:{size:10}}},
+        y1:{position:'right',beginAtZero:true,ticks:{color:mut,font:{size:10}},grid:{display:false},title:{display:true,text:'ROAS proj.',color:mut,font:{size:10}}}}}});
+}
+function renderScore(){
+  const fL=leadsActive(), fM=metaActive();
+  const d=scDerive(scTotal(fL,fM));
+  const alert=document.getElementById('scAlert');
+  if(fL.length && !fL.some(l=>l.ps)){ alert.hidden=false;
+    alert.innerHTML='<b>Atenção:</b> nenhum lead do período casou com a aba <b>Pesquisa</b> (join por e-mail) — todos caem na faixa D e o ROAS projetado fica subestimado. Conferir se a Pesquisa está sendo alimentada.'; }
+  else alert.hidden=true;
+  const k=[
+    {label:'ROAS projetado',val:numf(d.roas),aux:'mínimo da ação: '+SC_ROAS_MIN,hero:true},
+    {label:'Receita projetada',val:brl(d.receita),aux:'Σ leads × valor por lead'},
+    {label:'Gasto real',val:brl(d.gasto),aux:'Meta × '+String(TAX).replace('.',',')+' (imposto)'},
+    {label:'Leads',val:intf(d.leads),aux:'CPL '+brl(d.cpl)+' · '+pct(d.ps)+' c/ pesquisa'},
+    {label:'Custo por lead A',val:brl(d.cplA),aux:'teto R$ '+nf0.format(SC_CMAX.A)},
+    {label:'% faixa A',val:pct(d.pA),aux:'referência '+pct(SC_MIX.A)},
+    {label:'% faixas A+B',val:pct(d.leads?(d.A+d.B)/d.leads:null),aux:'referência '+pct(SC_MIX.A+SC_MIX.B)},
+  ];
+  document.getElementById('scKpis').innerHTML=k.map(kpiCard).join('');
+  const roasCard=document.querySelector('#scKpis .kpi');
+  if(roasCard && d.roas!=null) roasCard.classList.add(d.roas>=SC_ROAS_MIN?'sc-kpi-good':'sc-kpi-bad');
+  // tabela de faixas
+  const rng={A:SC_MIN.A+' ou mais',B:SC_MIN.B+' a '+(SC_MIN.A-1),C:SC_MIN.C+' a '+(SC_MIN.B-1),D:(SC_MIN.C-1)+' ou menos'};
+  const fxRows=FX.map(f=>({k:f,cells:{fx:`<span class="fx-dot" style="background:var(--fx-${f.toLowerCase()})"></span><b>${f}</b>`,
+    pts:rng[f], leads:d[f], share:d['p'+f], mix:SC_MIX[f], dev:d['p'+f]==null?null:d['p'+f]-SC_MIX[f],
+    cplX:d['cpl'+f], cmax:SC_CMAX[f], val:SC_VAL[f], rec:d[f]*SC_VAL[f]}}));
+  renderTable({id:'scFaixas', center:true, fit:true, cols:[
+    {key:'fx',label:'Faixa',type:'html',w:70},{key:'pts',label:'Pontos',type:'dim',w:100},{key:'leads',label:'Leads',type:'int'},
+    {key:'share',label:'% leads',type:'pct'},{key:'mix',label:'Mix ref.',type:'pct'},
+    {key:'dev',label:'Desvio',type:'pct',cls:r=>{const v=r.cells.dev; return v==null?'':(Math.abs(v)<0.05?'':(v>0===(r.k==='A'||r.k==='B')?'sc-good':'sc-warn'));}},
+    {key:'cplX',label:'Custo/lead',type:'brl',cls:r=>{const v=r.cells.cplX; return v==null?'':(v<=r.cells.cmax?'sc-good':'sc-bad');}},
+    {key:'cmax',label:'Teto custo/lead',type:'brl'},{key:'val',label:'Vale por lead',type:'brl'},{key:'rec',label:'Receita proj.',type:'brl'}],
+    rows:fxRows, total:{fx:'Total',pts:'',leads:d.leads,share:d.leads?1:null,mix:1,dev:null,cplX:d.cpl,cmax:null,val:d.leads?d.receita/d.leads:null,rec:d.receita}});
+  scDailyChart('scDailyChart',fL,fM);
+  scTable('scDaily',fL,fM,'date','Data','date',r=>r.d,false);
+  scTable('scCamp',fL,fM,'camp','Campanha','dim',r=>r.camp,true);
+  scTable('scAdset',fL,fM,'adset','Conjunto','dim',r=>r.adset,true);
+  scTable('scAd',fL,fM,'ad','Criativo','dim',r=>r.ad,true);
+}
+
 /* ---------------- navigation & boot ---------------- */
 function setPage(p){ STATE.page=p;
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===p));
   document.getElementById('page-geral').classList.toggle('active',p==='geral');
   document.getElementById('page-meta').classList.toggle('active',p==='meta');
   document.getElementById('page-rel').classList.toggle('active',p==='rel');
-  document.getElementById('ptitle').textContent = p==='meta'?'Captura Meta Ads':(p==='rel'?'Relatório':'Visão Geral de Leads');
+  document.getElementById('page-score').classList.toggle('active',p==='score');
+  document.getElementById('ptitle').textContent = p==='meta'?'Captura Meta Ads':(p==='rel'?'Relatório':(p==='score'?'Lead Scoring MFA':'Visão Geral de Leads'));
   document.getElementById('navToggle').checked=false;
-  history.replaceState(null,'', p==='meta'?'#meta':(p==='rel'?'#rel':'#geral'));
+  history.replaceState(null,'', '#'+p);
   renderAll();
 }
-function renderAll(){ if(STATE.page==='meta') renderMeta(); else if(STATE.page==='rel') renderRelatorio(); else renderGeral(); }
+function renderAll(){ if(STATE.page==='meta') renderMeta(); else if(STATE.page==='rel') renderRelatorio(); else if(STATE.page==='score') renderScore(); else renderGeral(); }
 
 function applyTheme(){ const t=localStorage.getItem('dm_theme'); if(t==='light') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme','dark'); }
 applyTheme();
@@ -1209,7 +1326,7 @@ document.getElementById('buildFoot').textContent='build __BUILD_ID__';
 document.getElementById('buildFoot2').textContent='· build __BUILD_ID__';
 
 syncDateInputs();
-setPage(location.hash==='#meta'?'meta':(location.hash==='#rel'?'rel':'geral'));
+setPage(['#meta','#rel','#score'].includes(location.hash)?location.hash.slice(1):'geral');
 
 /* auto-refresh com cache-bust ~30 min */
 setTimeout(()=>{ location.href=location.pathname+'?t='+Date.now()+location.hash; }, 30*60*1000);

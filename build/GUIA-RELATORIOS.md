@@ -80,18 +80,22 @@ ABO | 2026-09-24 | Teste de Criativos`; `E2-CAP` = etapa de captação,
 inscrição; cada inscrição cai na aba **Leads** da planilha de Leads (com
 `utm_campaign`/`utm_medium`/`utm_content`/`utm_term` = campanha/conjunto/
 anúncio/posicionamento), que é a fonte de leads deste dashboard. As respostas
-da pesquisa ficam na aba **Pesquisa** (chave = email). **O critério de MQL
-ainda não foi definido** pelo estrategista — até lá MQLs = 0 e CPMQL/Tx‑MQL
-aparecem "-"; os Insights devem avaliar o funil por **CPL, CTR, CPM e taxa
-de conversão da LP (ConvLP = Leads / Landing Page Views)**. Este funil **não tem
+da pesquisa ficam na aba **Pesquisa** (chave = email) e geram o **Lead Scoring
+MFA**: score = soma dos pontos das 6 respostas → faixa **A (≥29) · B (18–28) · C
+(9–17) · D (≤8)**; lead sem pesquisa = 5 pontos (D). **MQL (provisório) = faixas
+A+B.** A métrica-mestra do funil é o **ROAS projetado** = Σ(leads da faixa × valor
+por lead: A R$ 962 · B R$ 309 · C R$ 117 · D R$ 80) ÷ gasto real (gasto × 1,1381);
+**ROAS mínimo = 3**. Teto de custo por lead: A R$ 321 · B R$ 103 · C R$ 39 · D R$ 27.
+Mix de referência: A 25% · B 30% · C 27% · D 18%. Regra de ouro: otimizar pelo ROAS
+projetado da mistura de faixas, **nunca** pelo CPL sozinho nem pelo custo do lead A
+isolado (ver página "Lead Scoring" e `CLAUDE.md`). Este funil **não tem
 Vendas/Faturamento** conectados (sem aba de compradores).
 
 ```
-Impressões → Cliques → Landing Page Views → Leads (inscrições) → [MQLs: a definir]
+Impressões → Cliques → Landing Page Views → Leads (inscrições) → Faixas A/B/C/D → ROAS projetado
 ```
 
-- **MQL** = ainda não definido (ver `build.py` → `is_mql`; quando vier, será
-  lido da aba Pesquisa cruzada por email).
+- **MQL** = lead nas faixas A+B do Lead Scoring (`build.py` → `MQL_FAIXAS`, provisório).
 - **Agendamento** = o lead qualificado marcou horário de reunião com o comercial.
 - **Reunião Realizada** = a reunião de fato aconteceu (o lead compareceu). O
   inverso disso é o **No‑Show** (agendou e não compareceu) — a métrica de alerta

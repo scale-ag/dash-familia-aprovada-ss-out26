@@ -46,7 +46,7 @@ META_SPREADSHEET_ID = "1pzA2w8n4W06uUA8_DqzwUTgWc9_CK-GCcx-UsNIQrKU"
 GID_META = "0"                # aba "Pagina1"
 LEADS_SPREADSHEET_ID = "1mniLIjov9tc4jlPpXKN3l_aOYfeOFCmC73apABI7nZY"
 GID_LEADS = "193755064"       # aba "Leads" — fonte principal de leads (inscricoes + UTMs)
-GID_PESQUISA = "0"            # aba "Pesquisa" — respostas (chave = email); reservada p/ o MQL
+GID_PESQUISA = "0"            # aba "Pesquisa" — respostas (chave = email) → Lead Scoring
 EXPORT_URL = "https://docs.google.com/spreadsheets/d/{sid}/export?format=csv&gid={gid}"
 
 # Identificação do cliente/conta (usada só em textos/relatórios — não afeta o cruzamento de dados).
@@ -57,9 +57,15 @@ MAIN_PRODUCT = "Venda de Ingressos"
 MAIN_PRODUCT_PREFIX = "SS-OUT26"
 
 BRT = timezone(timedelta(hours=-3))   # horario de Brasilia (exibicao)
-TAX_FACTOR = 1.13806   # fator padrão de imposto/taxa sobre o gasto de mídia paga (Meta Ads) = 13,806%.
-                       # Default do template para toda nova dash criada a partir dele; ajuste apenas
-                       # se o cliente tiver um fator diferente, ou use 1.0 se não houver imposto.
+TAX_FACTOR = 1.1381    # imposto da Meta sobre o gasto de mídia paga — valor EXATO da especificação
+                       # "Lead Scoring MFA" (gasto_real = gasto × 1,1381). Não trocar por 1.13806:
+                       # os números do ROAS projetado precisam bater com a outra implementação.
+
+# Fuso: a conta de anúncios roda em America/Noronha (UTC-2) — o dia da Meta vira
+# às 23h de Brasília. A data_inscricao dos leads está em horário de Brasília
+# (UTC-3), então somamos 1h antes de tirar a data, para que "gasto do dia" e
+# "leads do dia" usem o MESMO fuso (spec Lead Scoring MFA, regras de borda).
+LEAD_TZ_SHIFT_HOURS = 1
 
 # --------------------------------------------------------------------------- #
 # Regras da aba Relatório (Top/Piores anúncios)
@@ -144,40 +150,177 @@ def to_float(v) -> float:
         return 0.0
 
 
-def parse_date(v: str) -> str | None:
+def parse_datetime(v: str) -> tuple[datetime, bool] | None:
+    """Data (+ hora, quando houver) de uma célula. Devolve (datetime, tem_hora)."""
     if not v:
         return None
     s = str(v).strip()
     if not s:
         return None
-    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", s)
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{1,2}):(\d{2}))?", s)
     if m:
-        return f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
+        dt = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)),
+                      int(m.group(4) or 0), int(m.group(5) or 0))
+        return dt, m.group(4) is not None
     # Serial de data do Google Sheets/Excel (ex. "46288,68125" = 23/09/2026 16:21):
     # aparece quando a célula de data não está formatada como texto/data.
     if re.fullmatch(r"\d{5}([.,]\d+)?", s):
-        return (datetime(1899, 12, 30) + timedelta(days=int(s.split(",")[0].split(".")[0]))).strftime("%Y-%m-%d")
-    s = s.split()[0]   # descarta a hora ("23/09/2026 17:05" -> "23/09/2026")
+        serial = float(s.replace(",", "."))
+        return datetime(1899, 12, 30) + timedelta(days=serial), "," in s or "." in s
+    parts = s.split()
     for fmt in ("%d/%m/%Y", "%m/%d/%Y", "%d/%m/%y", "%b %d, %Y", "%Y/%m/%d"):
         try:
-            return datetime.strptime(s, fmt).strftime("%Y-%m-%d")
+            dt = datetime.strptime(parts[0] if fmt != "%b %d, %Y" else s, fmt)
         except ValueError:
             continue
+        tm = re.match(r"(\d{1,2}):(\d{2})", parts[1]) if len(parts) > 1 and fmt != "%b %d, %Y" else None
+        if tm:
+            return dt.replace(hour=int(tm.group(1)), minute=int(tm.group(2))), True
+        return dt, False
     return None
+
+
+def parse_date(v: str) -> str | None:
+    r = parse_datetime(v)
+    return r[0].strftime("%Y-%m-%d") if r else None
+
+
+def lead_day(v: str) -> str | None:
+    """Dia do lead no fuso da conta de anúncios (Brasília + LEAD_TZ_SHIFT_HOURS).
+    Sem hora na célula, não há como deslocar: usa a data como está."""
+    r = parse_datetime(v)
+    if not r:
+        return None
+    dt, has_time = r
+    if has_time:
+        dt = dt + timedelta(hours=LEAD_TZ_SHIFT_HOURS)
+    return dt.strftime("%Y-%m-%d")
 
 
 def is_test_lead(rowtext: str) -> bool:
     return "<test lead" in rowtext.lower()
 
 
-# Critério de MQL: AINDA NÃO DEFINIDO pelo estrategista. Enquanto não vier,
-# nenhum lead é qualificado (MQLs = 0, CPMQL/Tx-MQL = "-"). Quando o critério
-# chegar: ler a aba "Pesquisa" (GID_PESQUISA; colunas email, concursos_sonhos,
-# momento_atual_estudos, situacao_hoje, horas_de_estudos, dificuldade_nos_estudos,
-# espera_mentoria), cruzar com a aba Leads por email e implementar a regra aqui.
-def is_mql(respostas: dict | None) -> bool:
-    """Critério de MQL — não definido ainda: sempre False."""
-    return False
+# --------------------------------------------------------------------------- #
+# Lead Scoring MFA (spec "Lead_Scoring_MFA.pdf")
+# --------------------------------------------------------------------------- #
+# Pontos por resposta — tabela da especificação, SEM recalcular/normalizar.
+# Chave "" = não respondeu / em branco / lead sem linha na aba Pesquisa.
+LEAD_SCORING = {
+    "concursos_sonhos": {
+        "Receita Federal (AFRFB / ATRFB)": 13, "ISS Municipal": 6, "TCU": 4, "CGU": 3,
+        "SEFAZ (SP, RS, DF, CE ou outro estado)": 2, "TCE (Tribunal de Contas Estadual)": 2,
+        "Ainda não decidi": 0, "": 2,
+    },
+    "momento_atual_estudos": {
+        "Estudo há 1 a 2 anos": 5, "Estudo há 6 meses a 1 ano": 4, "Estudo há mais de 2 anos": 4,
+        "Comecei há menos de 6 meses": 3, "Ainda não comecei": 0, "": 0,
+    },
+    "situacao_hoje": {
+        "Sou servidor público e quero avançar na carreira": 6,
+        "Trabalho em tempo integral e tenho filhos": 3,
+        "Trabalho em tempo integral e não tenho filhos": 2, "Outra situação": 2,
+        "Estou em transição de carreira ou sem emprego fixo": 1, "": 0,
+    },
+    "horas_de_estudos": {
+        "Entre 20 e 30 horas": 13, "Mais de 30 horas": 9, "Entre 10 e 20 horas": 6,
+        "Ainda não sei, vou organizar minha rotina": 1, "Menos de 10 horas": 0, "": 3,
+    },
+    "dificuldade_nos_estudos": {
+        "Começo mas não consigo manter a constância": 5,
+        "Estudo mas sinto que não estou evoluindo ou retendo o conteúdo": 4,
+        "Tenho dificuldade de conciliar estudos com trabalho e família": 4,
+        "Não sei o que priorizar para o meu concurso alvo": 1,
+        "Não sei por onde começar ou como montar um plano de estudos": 1, "": 0,
+    },
+    "espera_mentoria": {
+        "Acompanhamento próximo e suporte ao longo da preparação": 7,
+        "Disciplina e cobrança para manter a constância": 7,
+        "Um método que funcione dentro da minha rotina real": 2,
+        "Direcionamento e um plano claro de onde e como começar": 0,
+        "Motivação e apoio emocional para não desistir": 0, "": 0,
+    },
+}
+SCORING_QUESTIONS = list(LEAD_SCORING)
+# faixa = A se score >= 29 · B se 18..28 · C se 9..17 · D se <= 8
+FAIXAS = [("A", 29), ("B", 18), ("C", 9), ("D", -10**9)]
+VALOR_POR_LEAD = {"A": 962, "B": 309, "C": 117, "D": 80}          # R$ (receita projetada por lead)
+CUSTO_MAXIMO_POR_LEAD = {"A": 321, "B": 103, "C": 39, "D": 27}     # R$ (valor ÷ ROAS mínimo)
+MIX_REFERENCIA = {"A": 0.25, "B": 0.30, "C": 0.27, "D": 0.18}      # distribuição esperada (sinaliza desvio)
+ROAS_MINIMO = 3
+# Faixas que contam como MQL nos cards/tabelas legados do template (MQLs, CPMQL,
+# Tx-MQL, Top/Piores anúncios). PROVISÓRIO: A+B, a confirmar com o estrategista.
+MQL_FAIXAS = ("A", "B")
+# E-mails internos da equipe a descartar antes de qualquer contagem (além dos que
+# contêm "test"). Minúsculas; entradas começando com "@" descartam o domínio todo.
+INTERNAL_EMAILS: set[str] = set()
+
+# índice normalizado (sem acento/caixa/espaços extras) → pontos, por pergunta
+_SCORING_IDX = {q: {re.sub(r"\s+", " ", norm(k)): v for k, v in t.items()} for q, t in LEAD_SCORING.items()}
+
+
+def norm_email(e: str | None) -> str:
+    """Chave do join Leads × Pesquisa: minúscula e sem espaço nas pontas."""
+    return (e or "").strip().lower()
+
+
+def is_excluded_email(email: str) -> bool:
+    """Linha de teste (e-mail com "test") ou e-mail interno da equipe."""
+    if not email:
+        return False
+    if "test" in email:
+        return True
+    return email in INTERNAL_EMAILS or ("@" + email.split("@")[-1]) in INTERNAL_EMAILS
+
+
+def score_respostas(respostas: dict | None, unknown: dict | None = None) -> int:
+    """Soma simples dos pontos das 6 respostas. Sem linha na Pesquisa (None) ou
+    resposta em branco = "(não respondeu)". Resposta fora da tabela vale 0 e é
+    registrada em `unknown` ((pergunta, resposta) -> ocorrências) para log."""
+    total = 0
+    for q in SCORING_QUESTIONS:
+        raw = ((respostas or {}).get(q) or "").strip()
+        key = re.sub(r"\s+", " ", norm(raw))
+        pts = _SCORING_IDX[q].get(key)
+        if pts is None:
+            pts = 0
+            if unknown is not None:
+                unknown[(q, raw)] = unknown.get((q, raw), 0) + 1
+        total += pts
+    return total
+
+
+def faixa_of(score: int) -> str:
+    for fx, minimo in FAIXAS:
+        if score >= minimo:
+            return fx
+    return "D"
+
+
+def build_pesquisa_index(pesquisa_rows) -> tuple[dict, dict]:
+    """email normalizado -> (score, respostas). E-mail repetido na Pesquisa:
+    fica a linha de MAIOR pontuação. Devolve também o log de respostas fora da tabela."""
+    header = pesquisa_rows[0] if pesquisa_rows else []
+    idx = header_index(header, {"email": ["email"], **{q: [q] for q in SCORING_QUESTIONS}},
+                       {"email": 0, **{q: i + 1 for i, q in enumerate(SCORING_QUESTIONS)}})
+    unknown: dict = {}
+    out: dict[str, tuple[int, dict]] = {}
+    for row in pesquisa_rows[1:]:
+        if not any((c or "").strip() for c in row):
+            continue
+        email = norm_email(cell(row, idx["email"]))
+        if not email:
+            continue
+        resp = {q: cell(row, idx[q]) for q in SCORING_QUESTIONS}
+        sc = score_respostas(resp, unknown)
+        if email not in out or sc > out[email][0]:
+            out[email] = (sc, resp)
+    return out, unknown
+
+
+def is_mql(faixa: str) -> bool:
+    """MQL (provisório) = lead nas faixas MQL_FAIXAS do Lead Scoring."""
+    return faixa in MQL_FAIXAS
 
 
 def pretty_specialty(v: str) -> str:
@@ -257,7 +400,9 @@ def platform_of(term: str, source: str) -> str:
     return "—"
 
 
-def process(leads_rows, meta_rows):
+def process(leads_rows, meta_rows, pesquisa_rows=None):
+    pesquisa, unknown = build_pesquisa_index(pesquisa_rows or [])
+
     lheader = leads_rows[0] if leads_rows else []
     lidx = header_index(
         lheader,
@@ -268,34 +413,67 @@ def process(leads_rows, meta_rows):
     )
 
     leads = []
+    by_email: dict[str, int] = {}   # email -> índice em leads[] (dedupe)
+    n_excluded = n_dups = 0
     for row in leads_rows[1:]:
         if not any((c or "").strip() for c in row):
             continue
         if is_test_lead(" ".join(str(c) for c in row)):
             continue
+        email = norm_email(cell(row, lidx["email"]))
+        if is_excluded_email(email):
+            n_excluded += 1
+            continue
         campaign_raw = cell(row, lidx["campaign"])
         campaign_valid = valid_utm(campaign_raw)
         src = "meta" if campaign_valid else "org"
         term = cell(row, lidx["term"])
-        placement = term.replace("_", " ").strip() if term else "Não informado"
         ad = cell(row, lidx["ad"]) if campaign_valid else "(sem anúncio)"
-        leads.append({
-            "d": parse_date(cell(row, lidx["created"])),
+        # Lead Scoring: sem linha na Pesquisa = as 6 respostas "(não respondeu)" (5 pts, faixa D)
+        sc, _ = pesquisa.get(email) or (score_respostas(None), None)
+        fx = faixa_of(sc)
+        lead = {
+            "d": lead_day(cell(row, lidx["created"])),
             "src": src,
             "plat": platform_of(term, cell(row, lidx["source"])) if campaign_valid else "—",
-            "camp": campaign_raw if campaign_valid else "(sem campanha)",
-            "adset": (cell(row, lidx["adset"]) or "(sem conjunto)") if campaign_valid else "(sem conjunto)",
-            "ad": ad or "(sem anúncio)",
+            # lead sem UTM = orgânico (não distribui entre campanhas, não descarta)
+            "camp": campaign_raw if campaign_valid else "(orgânico)",
+            "adset": (cell(row, lidx["adset"]) or "(sem conjunto)") if campaign_valid else "(orgânico)",
+            "ad": (ad or "(sem anúncio)") if campaign_valid else "(orgânico)",
             # dimensões dos gráficos da Visão Geral: "prof" = anúncio (utm_content),
-            # "bucket" = posicionamento (utm_term). Sem pesquisa/MQL por enquanto.
-            "prof": ad or "(sem anúncio)",
-            "bucket": placement,
-            "q": 1 if is_mql(None) else 0,
+            # "bucket" = faixa do Lead Scoring.
+            "prof": (ad or "(sem anúncio)") if campaign_valid else "(orgânico)",
+            "bucket": "Faixa " + fx,
+            "sc": sc,
+            "fx": fx,
+            "ps": 1 if email in pesquisa else 0,   # respondeu a pesquisa?
+            "q": 1 if is_mql(fx) else 0,
             "utm": 1 if campaign_valid else 0,
             "nm": first_last_initial(cell(row, lidx["name"])),
-            "em": mask_email(cell(row, lidx["email"])),
+            "em": mask_email(email),
             "ph": mask_phone(cell(row, lidx["phone"])),
-        })
+        }
+        # E-mail repetido: conta o lead UMA vez, mantendo a linha de maior pontuação
+        # (empate: a primeira inscrição).
+        if email and email in by_email:
+            n_dups += 1
+            i = by_email[email]
+            if sc > leads[i]["sc"]:
+                leads[i] = lead
+            continue
+        if email:
+            by_email[email] = len(leads)
+        leads.append(lead)
+
+    n_ps = sum(l["ps"] for l in leads)
+    print(f"  lead scoring: {n_ps}/{len(leads)} leads com resposta na Pesquisa "
+          f"({len(pesquisa)} e-mails na aba Pesquisa) · {n_dups} e-mail(s) repetido(s) · "
+          f"{n_excluded} teste/interno(s) descartado(s)", file=sys.stderr)
+    if leads and n_ps == 0:
+        print("  ⚠️  NENHUM lead casou com a aba Pesquisa — todos caem na faixa D. "
+              "Conferir se a Pesquisa está sendo alimentada.", file=sys.stderr)
+    for (q, raw), n in sorted(unknown.items(), key=lambda x: -x[1]):
+        print(f"  ⚠️  resposta fora da tabela (vale 0): {q} = {raw!r} ({n}x)", file=sys.stderr)
 
     # Sem aba de Compradores neste funil: nenhuma venda/faturamento.
     sales = []
@@ -351,10 +529,20 @@ def process(leads_rows, meta_rows):
         "build": {
             "generated_at_brt": now_brt.strftime("%d/%m/%Y %H:%M"),
             "build_id": datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S"),
-            "today": now_brt.strftime("%Y-%m-%d"),
+            # "hoje" no fuso da conta de anúncios (Noronha) — mesmo fuso de leads e gasto
+            "today": (now_brt + timedelta(hours=LEAD_TZ_SHIFT_HOURS)).strftime("%Y-%m-%d"),
             "date_min": dates[0] if dates else None,
             "date_max": dates[-1] if dates else None,
             "tax_factor": TAX_FACTOR,
+            # Lead Scoring MFA (lido pela página "Lead Scoring")
+            "scoring": {
+                "valor_por_lead": VALOR_POR_LEAD,
+                "custo_maximo_por_lead": CUSTO_MAXIMO_POR_LEAD,
+                "mix_referencia": MIX_REFERENCIA,
+                "roas_minimo": ROAS_MINIMO,
+                "faixas": {fx: m for fx, m in FAIXAS},
+                "mql_faixas": list(MQL_FAIXAS),
+            },
             # config da aba Relatório (lida pelo front)
             "sample_min_spend": SAMPLE_MIN_SPEND,
             "sample_min_mqls": SAMPLE_MIN_MQLS,
@@ -422,23 +610,26 @@ def render(data, template_path):
     return tpl
 
 
-def load_data(leads_file: str | None = None, meta_file: str | None = None) -> dict:
+def load_data(leads_file: str | None = None, meta_file: str | None = None,
+              pesquisa_file: str | None = None) -> dict:
     """Lê as 2 planilhas (ou CSVs locais) e devolve os registros brutos.
     Compartilhado com coletar_dados_relatorio.py / gerar_relatorios.py."""
     leads_rows = load_rows(EXPORT_URL.format(sid=LEADS_SPREADSHEET_ID, gid=GID_LEADS), leads_file)
+    pesquisa_rows = load_rows(EXPORT_URL.format(sid=LEADS_SPREADSHEET_ID, gid=GID_PESQUISA), pesquisa_file)
     meta_rows = load_rows(EXPORT_URL.format(sid=META_SPREADSHEET_ID, gid=GID_META), meta_file)
-    return process(leads_rows, meta_rows)
+    return process(leads_rows, meta_rows, pesquisa_rows)
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--leads-file", help="CSV local da aba Leads (fonte principal de leads)")
     ap.add_argument("--meta-file", help="CSV local da aba Pagina1 (Meta Ads)")
+    ap.add_argument("--pesquisa-file", help="CSV local da aba Pesquisa (Lead Scoring)")
     ap.add_argument("--template", default="build/template.html")
     ap.add_argument("--out", default="dist/index.html")
     args = ap.parse_args()
 
-    data = load_data(args.leads_file, args.meta_file)
+    data = load_data(args.leads_file, args.meta_file, args.pesquisa_file)
 
     # Insights de Tráfego (texto pré-escrito) — lidos do arquivo versionado ao
     # lado do template. Sem chamada de API no build.
@@ -453,7 +644,9 @@ def main():
     q = sum(l["q"] for l in data["leads"])
     print("== build ok ==", file=sys.stderr)
     print(f"  periodo   : {b['date_min']} -> {b['date_max']}", file=sys.stderr)
-    print(f"  leads     : {len(data['leads'])}  MQLs: {q} (critério ainda não definido)", file=sys.stderr)
+    fx = {f: sum(1 for l in data["leads"] if l["fx"] == f) for f in "ABCD"}
+    print(f"  leads     : {len(data['leads'])}  faixas A/B/C/D: {fx['A']}/{fx['B']}/{fx['C']}/{fx['D']}  "
+          f"MQLs ({'+'.join(MQL_FAIXAS)}): {q}", file=sys.stderr)
     print(f"  meta      : {len(data['meta'])} linhas", file=sys.stderr)
     print(f"  out       : {args.out}", file=sys.stderr)
 

@@ -7,7 +7,7 @@
 > **Configurado para Nubia Oliveira — funil "Venda de Ingressos" (lançamento
 > pago), sigla de campanha `SS-OUT26`.** Todos os marcadores do template já
 > foram preenchidos. O CHECKLIST abaixo fica como referência para replicar o
-> modelo em outro cliente. **Pendente:** critério de MQL (ainda não definido).
+> modelo em outro cliente. Lead Scoring MFA implementado; **MQL provisório = faixas A+B**.
 
 ---
 
@@ -79,7 +79,7 @@ Duas planilhas (somente leitura):
 |----------|-----|-----|---------|
 | **Meta Ads** `1pzA2w8n4W06uUA8_DqzwUTgWc9_CK-GCcx-UsNIQrKU` (`META_SPREADSHEET_ID`) | `Página1` | `0` (`GID_META`) | `Day` · `Campaign Name` · `Ad Set Name` · `Ad Name` · `Impressions` · `Link Clicks` · `Amount Spent` (vírgula decimal) · `Landing Page Views` |
 | **Leads** `1mniLIjov9tc4jlPpXKN3l_aOYfeOFCmC73apABI7nZY` (`LEADS_SPREADSHEET_ID`) | `Leads` — **fonte principal de leads** | `193755064` (`GID_LEADS`) | `data_inscricao` · `nome` · `email` · `telefone` · `utm_source` · `utm_campaign` · `utm_medium` · `utm_content` · `utm_term` · `url_pagina` · `oferta` |
-| **Leads** (mesma planilha) | `Pesquisa` — respostas (chave = `email`); **ainda não lida** | `0` (`GID_PESQUISA`) | `email` · `concursos_sonhos` · `momento_atual_estudos` · `situacao_hoje` · `horas_de_estudos` · `dificuldade_nos_estudos` · `espera_mentoria` |
+| **Leads** (mesma planilha) | `Pesquisa` — respostas (chave = `email`) → **Lead Scoring MFA** | `0` (`GID_PESQUISA`) | `email` · `concursos_sonhos` · `momento_atual_estudos` · `situacao_hoje` · `horas_de_estudos` · `dificuldade_nos_estudos` · `espera_mentoria` |
 
 Mapeamento da aba Leads → registro de lead: `utm_campaign`/`utm_medium`/`utm_content`
 = `Campaign Name`/`Ad Set Name`/`Ad Name` do Meta Ads (camp/adset/ad); `utm_term`
@@ -91,12 +91,37 @@ sem ticket/vendas).
 
 URL de export CSV: `https://docs.google.com/spreadsheets/d/<ID>/export?format=csv&gid=<GID>`
 
-### Regra de Lead Qualificado (MQL)
-**AINDA NÃO DEFINIDA** — o estrategista vai passar o critério. Até lá
-`build.py` → `is_mql()` devolve sempre `False` (MQLs = 0; CPMQL/Tx‑MQL "-"), e os
-rótulos da UI dizem "MQLs (critério a definir)". Quando o critério chegar: ler a
-aba **Pesquisa** (`GID_PESQUISA`), cruzar com a aba Leads por **email**, implementar
-a regra em `is_mql()` e ajustar os rótulos de MQL em `app.js`/`template.html`.
+### Lead Scoring MFA (spec `Lead_Scoring_MFA.pdf`) e MQL
+Cada lead recebe **score = soma simples dos pontos das 6 respostas** da aba
+**Pesquisa** (tabela `LEAD_SCORING` em `build.py`, copiada da spec — **não
+recalcular nem normalizar**) e uma **faixa**: A ≥ 29 · B 18–28 · C 9–17 · D ≤ 8.
+- **Join Leads × Pesquisa por e-mail** normalizado (minúscula, sem espaço nas pontas).
+- **Sem linha na Pesquisa / resposta em branco** = "(não respondeu)": concursos_sonhos
+  vale 2 e horas_de_estudos vale 3 → lead sem pesquisa = **5 pontos, faixa D** (não descartar).
+- **Resposta fora da tabela** vale 0 e é logada no build (`⚠️ resposta fora da tabela`).
+- **E-mail repetido**: conta 1 vez, fica a linha de maior pontuação.
+- **Lead sem UTM** = `(orgânico)`. **Teste**: descarta e-mails com "test" e os de
+  `INTERNAL_EMAILS` (vazio — preencher com os e-mails internos da equipe).
+- **Fuso**: a conta roda em America/Noronha (dia vira às 23h de Brasília) →
+  `lead_day()` soma `LEAD_TZ_SHIFT_HOURS = 1` à `data_inscricao` (BRT); o "hoje" do build também.
+- `valor_por_lead` A 962 · B 309 · C 117 · D 80; `custo_maximo_por_lead` A 321 · B 103 ·
+  C 39 · D 27; `mix_referencia` 25/30/27/18%; ROAS mínimo 3.
+- `gasto_real = gasto × 1,1381` (**`TAX_FACTOR = 1.1381`**, valor exato da spec);
+  `receita_projetada = Σ leads_faixa × valor_por_lead`; `ROAS_projetado = receita ÷ gasto_real`;
+  `custo_por_lead_X = gasto_real ÷ leads_faixa_X`. Na página **Lead Scoring** o imposto
+  é aplicado **sempre** (independe do toggle).
+- Casos de teste da spec: `build/test_lead_scoring.py` (49/A · 25/B · 16/C · 5/D) —
+  roda no `deploy.yml` antes do build; se falhar, não publica.
+
+**MQL (provisório) = faixas A+B** (`MQL_FAIXAS` em `build.py`) — alimenta os cards/
+tabelas legados do template (MQLs, CPMQL, Tx‑MQL, Top/Piores). A confirmar com o estrategista.
+
+**Página "Lead Scoring"** (`renderScore()` em `app.js`, `#score`): KPIs macro (ROAS
+projetado, receita projetada, gasto real, custo por lead A, % A), tabela de faixas
+(% × mix de referência, custo/lead × teto), gráfico diário empilhado por faixa + ROAS,
+e tabelas Diária / Campanha / Conjunto / Criativo com coluna **Sinal** (regras da seção
+10 da spec: ROAS < 3 → cortar; custo/lead A > 321 → cortar; < 10 leads → amostra
+pequena; %A < metade da referência → volume C/D; senão ROAS ≥ 3 → escalar).
 
 ### Vendas & Faturamento
 **Não se aplica a este funil** (decisão do cliente: sem ticket e sem vendas).

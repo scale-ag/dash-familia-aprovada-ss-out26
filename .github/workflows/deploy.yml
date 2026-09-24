@@ -41,6 +41,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Testes do Lead Scoring MFA (casos de teste da especificacao)
+        run: python build/test_lead_scoring.py
+
       - name: Build dashboard (le as planilhas via CSV publico, somente leitura)
         run: python build/build.py --out dist/index.html
 

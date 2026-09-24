@@ -25,6 +25,8 @@
   --step-mql-bg:#EAF0FF; --step-mql-bd:#3B5BDB;
   --step-gasto-bg:#FDECEC; --step-gasto-bd:#E34948;
   --step-fat-bg:#E9F9EE; --step-fat-bd:#0CA30C;
+  /* Lead Scoring MFA: faixas A (melhor) → D */
+  --fx-a:#0CA30C; --fx-b:#3B5BDB; --fx-c:#E8A400; --fx-d:#9CA3AF;
 }
 
 /* ------------------------------ TEMA ESCURO (toggle) ----------------------- */
@@ -61,4 +63,6 @@
   --step-mql-bg:#16233F; --step-mql-bd:#5B7BF0;
   --step-gasto-bg:#3A1D20; --step-gasto-bd:#EF4444;
   --step-fat-bg:#132B1D; --step-fat-bd:#22C55E;
+  /* Lead Scoring MFA: faixas A (melhor) → D */
+  --fx-a:#22C55E; --fx-b:#2F6BFF; --fx-c:#FFB020; --fx-d:#6B7280;
 }

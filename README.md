@@ -19,14 +19,18 @@ Sigla do funil nas campanhas: **`SS-OUT26`**.
 - **Evolução diária**: gasto/dia, leads/dia, CPL/dia.
 - **Origem**: leads por origem (Meta Ads vs. orgânico/sem UTM), por plataforma, por posicionamento (`utm_term`) e por anúncio (`utm_content`).
 - **Cruzamento por campanha/conjunto/anúncio**: gasto (Meta Ads) × leads (aba Leads).
-- **Toggle de imposto da mídia paga** (13,806%, ativo por padrão) e **modo claro/escuro**.
+- **Lead Scoring MFA**: faixas A/B/C/D, receita e ROAS projetados, sinais de cortar/escalar.
+- **Toggle de imposto da mídia paga** (13,81%, ativo por padrão) e **modo claro/escuro**.
 - **Aba Relatório**: painel de metas editável + Top/Piores Anúncios + Insights de Tráfego.
 
-## Critério de Lead Qualificado (MQL)
+## Lead Scoring MFA e MQL
 
-**Ainda não definido.** MQLs aparecem 0 e CPMQL/Tx‑MQL "-". Quando o critério
-vier, ele será lido da aba **Pesquisa** (cruzada com a aba Leads por email) —
-ver `build/build.py` → `is_mql`.
+Cada lead ganha um **score** (soma dos pontos das 6 respostas da aba **Pesquisa**,
+cruzada por e-mail) e uma **faixa A/B/C/D**. A página **Lead Scoring** mostra %
+por faixa × mix de referência, custo por lead de cada faixa × teto, **receita e
+ROAS projetados** (gasto × 1,1381 de imposto) no total, por dia, campanha,
+conjunto e criativo. Regras completas em `CLAUDE.md`; casos de teste em
+`build/test_lead_scoring.py`. **MQL (provisório) = faixas A+B.**
 
 Este funil **não tem Vendas/Faturamento** (sem aba de compradores) — essas
 métricas aparecem "-".
@@ -37,7 +41,7 @@ métricas aparecem "-".
 |----------|-----|-----|-----|
 | Meta Ads (`1pzA2w8n4W06uUA8_DqzwUTgWc9_CK-GCcx-UsNIQrKU`) | `Página1` | `0` | gasto, impressões, cliques, landing page views |
 | Leads (`1mniLIjov9tc4jlPpXKN3l_aOYfeOFCmC73apABI7nZY`) | `Leads` | `193755064` | fonte **principal** de leads (inscrições + UTMs) |
-| Leads (`1mniLIjov9tc4jlPpXKN3l_aOYfeOFCmC73apABI7nZY`) | `Pesquisa` | `0` | respostas da pesquisa — reservada para o critério de MQL (ainda não lida) |
+| Leads (`1mniLIjov9tc4jlPpXKN3l_aOYfeOFCmC73apABI7nZY`) | `Pesquisa` | `0` | respostas da pesquisa → Lead Scoring (faixas A/B/C/D) |
 
 O build lê essas abas via **export CSV público** (`.../export?format=csv&gid=...`).
 **Nada é escrito de volta** nas planilhas.

@@ -369,3 +369,16 @@
   .rel-wa-copy{font-size:12px; font-weight:700; padding:5px 12px; border-radius:8px; border:1px solid var(--border); background:var(--accent-blue); color:#fff; cursor:pointer}
   .rel-wa-copy:hover{opacity:.9}
   .rel-wa-box{white-space:pre-wrap; word-break:break-word; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12.5px; line-height:1.55; margin:0; user-select:all; color:var(--ink)}
+
+/* ---------------- Página Lead Scoring MFA ---------------- */
+  table.dt td.sc-good{background:color-mix(in srgb,var(--good) 15%,transparent); color:var(--good); font-weight:700}
+  table.dt td.sc-warn{background:color-mix(in srgb,var(--yellow) 18%,transparent); color:var(--yellow); font-weight:700}
+  table.dt td.sc-bad{background:color-mix(in srgb,var(--bad) 14%,transparent); color:var(--bad); font-weight:700}
+  .fx-dot{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:-1px}
+  .sc-alert{margin:0 0 14px; padding:10px 14px; border-radius:10px; font-size:13px; border:1px solid var(--bad);
+    color:var(--bad); background:color-mix(in srgb,var(--bad) 10%,transparent)}
+  .sc-alert[hidden]{display:none}
+  .kpi.sc-kpi-good .kv{color:var(--good)} .kpi.sc-kpi-bad .kv{color:var(--bad)}
+  .sc-legend{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; font-size:12.5px}
+  .sc-legend > div{border:1px solid var(--border); border-radius:10px; padding:10px 12px; background:var(--surface)}
+  .sc-legend b{display:block; margin-bottom:4px}

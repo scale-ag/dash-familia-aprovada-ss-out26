@@ -403,10 +403,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--leads-file")
     ap.add_argument("--meta-file")
+    ap.add_argument("--pesquisa-file")
     ap.add_argument("--out", default="build/relatorios.json")
     args = ap.parse_args()
 
-    data = bp.load_data(args.leads_file, args.meta_file)
+    data = bp.load_data(args.leads_file, args.meta_file, args.pesquisa_file)
     leads, meta = data["leads"], data["meta"]
 
     now_brt = datetime.now(BRT)
