@@ -88,11 +88,13 @@ por lead: A R$ 962 · B R$ 309 · C R$ 117 · D R$ 80) ÷ gasto real (gasto × 1
 **ROAS mínimo = 3**. Teto de custo por lead: A R$ 321 · B R$ 103 · C R$ 39 · D R$ 27.
 Mix de referência: A 25% · B 30% · C 27% · D 18%. Regra de ouro: otimizar pelo ROAS
 projetado da mistura de faixas, **nunca** pelo CPL sozinho nem pelo custo do lead A
-isolado (ver página "Lead Scoring" e `CLAUDE.md`). Este funil **não tem
-Vendas/Faturamento** conectados (sem aba de compradores).
+isolado (ver página "Lead Scoring" e `CLAUDE.md`). É um **funil de VENDAS**:
+cada linha da aba Leads é um **ingresso vendido** (Vendas = compradores; CPA =
+gasto ÷ vendas) e o **Faturamento** real é a soma da coluna `oferta` (R$ 47/67);
+ROAS real = faturamento ÷ gasto real.
 
 ```
-Impressões → Cliques → Landing Page Views → Leads (inscrições) → Faixas A/B/C/D → ROAS projetado
+Impressões → Cliques → Landing Page Views → Vendas de ingresso → Faturamento (ROAS real) → Faixas A/B/C/D → ROAS projetado
 ```
 
 - **MQL** = lead nas faixas A+B do Lead Scoring (`build.py` → `MQL_FAIXAS`, provisório).

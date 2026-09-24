@@ -32,8 +32,9 @@ ROAS projetados** (gasto × 1,1381 de imposto) no total, por dia, campanha,
 conjunto e criativo. Regras completas em `CLAUDE.md`; casos de teste em
 `build/test_lead_scoring.py`. **MQL (provisório) = faixas A+B.**
 
-Este funil **não tem Vendas/Faturamento** (sem aba de compradores) — essas
-métricas aparecem "-".
+É um **funil de vendas**: cada linha da aba Leads é um **ingresso vendido**
+(1 por e-mail) e o **Faturamento** é a soma da coluna `oferta` (R$ 47/67 por lote).
+CPA = gasto ÷ vendas; ROAS real = faturamento ÷ gasto.
 
 ## Fontes de dados (somente leitura)
 

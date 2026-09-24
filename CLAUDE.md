@@ -86,8 +86,7 @@ Mapeamento da aba Leads → registro de lead: `utm_campaign`/`utm_medium`/`utm_c
 = posicionamento (ex. `Instagram_Reels`) → plataforma + gráfico "Leads por
 posicionamento". Lead sem `utm_campaign` = orgânico/sem UTM. `data_inscricao` vem
 como `dd/mm/aaaa hh:mm` **ou** como serial do Sheets (`46288,68125`) — ambos
-tratados em `parse_date`. A coluna `oferta` é **ignorada** (decisão do cliente:
-sem ticket/vendas).
+tratados em `parse_date`. A coluna `oferta` = valor do ingresso → Faturamento.
 
 URL de export CSV: `https://docs.google.com/spreadsheets/d/<ID>/export?format=csv&gid=<GID>`
 
@@ -123,9 +122,16 @@ e tabelas Diária / Campanha / Conjunto / Criativo com coluna **Sinal** (regras 
 10 da spec: ROAS < 3 → cortar; custo/lead A > 321 → cortar; < 10 leads → amostra
 pequena; %A < metade da referência → volume C/D; senão ROAS ≥ 3 → escalar).
 
-### Vendas & Faturamento
-**Não se aplica a este funil** (decisão do cliente: sem ticket e sem vendas).
-Não há aba de compradores; `sales[]` sai vazio e Vendas/Fat./CAC/ROAS aparecem "-".
+### Vendas & Faturamento — é um FUNIL DE VENDAS (não de leads)
+Cada linha da aba **Leads** é um **ingresso vendido** (lançamento pago); a coluna
+`oferta` é o valor pago (lote R$ 47 / R$ 67). `build.py` gera `sales[]` com **1 venda
+por comprador** (e-mail único, após dedupe) e `fat = receita = oferta`, com a mesma
+data/atribuição (utm_*) da linha. Na UI, "Leads" aparece como **Vendas (ingressos)**,
+CPL como **CPA**, e o funil termina em **Faturamento · ROAS real · Ticket médio**
+(as colunas duplicadas Vendas/CAC/ConvMQL/Receita do template foram removidas das
+tabelas). Internamente os campos continuam `leads`/`cpl` (nome do template).
+Na página Lead Scoring: **ROAS real** = faturamento de ingressos ÷ gasto real, ao lado
+do **ROAS projetado** (ingresso + mentoria projetada pela faixa).
 
 ### Imposto da mídia paga
 `TAX_FACTOR` em `build.py`, com **default `1.13806`** (13,806%) já configurado no

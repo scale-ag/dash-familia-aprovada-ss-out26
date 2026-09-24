@@ -16,8 +16,9 @@ Criterio de Lead Qualificado (MQL): AINDA NAO DEFINIDO pelo estrategista —
 is_mql() devolve sempre False (MQLs = 0, CPMQL = "-"). Quando o criterio vier,
 ler a aba Pesquisa (GID_PESQUISA), cruzar por email e ajustar is_mql().
 
-Sem aba de Compradores: nao ha Vendas/Faturamento neste funil (sales[] vazio ->
-metricas de venda aparecem "-").
+FUNIL DE VENDAS: cada linha da aba "Leads" e um INGRESSO VENDIDO; a coluna
+"oferta" e o valor pago (lote R$ 47/67). sales[] = 1 venda por comprador
+(e-mail unico), faturamento = oferta.
 
 Este script apenas LE as planilhas (export CSV publico) e emite os REGISTROS
 BRUTOS (leads[] e meta[]) dentro do HTML. Todos os filtros, agregacoes, KPIs,
@@ -408,8 +409,9 @@ def process(leads_rows, meta_rows, pesquisa_rows=None):
         lheader,
         {"created": ["data_inscricao", "data"], "name": ["nome"], "email": ["email"], "phone": ["telefone"],
          "source": ["utm_source"], "campaign": ["utm_campaign"], "adset": ["utm_medium"],
-         "ad": ["utm_content"], "term": ["utm_term"]},
-        {"created": 0, "name": 1, "email": 2, "phone": 3, "source": 4, "campaign": 5, "adset": 6, "ad": 7, "term": 8},
+         "ad": ["utm_content"], "term": ["utm_term"], "offer": ["oferta"]},
+        {"created": 0, "name": 1, "email": 2, "phone": 3, "source": 4, "campaign": 5, "adset": 6, "ad": 7, "term": 8,
+         "offer": 10},
     )
 
     leads = []
@@ -445,6 +447,7 @@ def process(leads_rows, meta_rows, pesquisa_rows=None):
             "prof": (ad or "(sem anúncio)") if campaign_valid else "(orgânico)",
             "bucket": "Faixa " + fx,
             "sc": sc,
+            "of": round(to_float(cell(row, lidx["offer"])), 2),   # valor do ingresso (faturamento)
             "fx": fx,
             "ps": 1 if email in pesquisa else 0,   # respondeu a pesquisa?
             "q": 1 if is_mql(fx) else 0,
@@ -475,8 +478,11 @@ def process(leads_rows, meta_rows, pesquisa_rows=None):
     for (q, raw), n in sorted(unknown.items(), key=lambda x: -x[1]):
         print(f"  ⚠️  resposta fora da tabela (vale 0): {q} = {raw!r} ({n}x)", file=sys.stderr)
 
-    # Sem aba de Compradores neste funil: nenhuma venda/faturamento.
-    sales = []
+    # Funil de VENDAS: cada comprador (e-mail único, já deduplicado acima) é 1
+    # venda de ingresso; faturamento = coluna "oferta" (valor do lote pago).
+    # Atribuição/data = as da própria linha (utm_* e data_inscricao no fuso da conta).
+    sales = [{"d": l["d"], "src": l["src"], "camp": l["camp"], "adset": l["adset"], "ad": l["ad"],
+              "vendas": 1, "fat": l["of"], "receita": l["of"]} for l in leads]
 
     mheader = meta_rows[0] if meta_rows else []
     midx = header_index(
@@ -644,6 +650,8 @@ def main():
     q = sum(l["q"] for l in data["leads"])
     print("== build ok ==", file=sys.stderr)
     print(f"  periodo   : {b['date_min']} -> {b['date_max']}", file=sys.stderr)
+    print(f"  vendas    : {len(data['sales'])} ingressos  faturamento: R$ {sum(x['fat'] for x in data['sales']):,.2f}",
+          file=sys.stderr)
     fx = {f: sum(1 for l in data["leads"] if l["fx"] == f) for f in "ABCD"}
     print(f"  leads     : {len(data['leads'])}  faixas A/B/C/D: {fx['A']}/{fx['B']}/{fx['C']}/{fx['D']}  "
           f"MQLs ({'+'.join(MQL_FAIXAS)}): {q}", file=sys.stderr)

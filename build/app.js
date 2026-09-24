@@ -58,8 +58,8 @@ function derive(a){
 }
 /* --------- FUNIL: MQL → Venda (Vendas/Faturamento já ligados via build.py) ---------
    Funil do cliente: Impressões → Cliques → Leads → MQLs → Vendas → Faturamento.
-   `vendas`/`fat`/`receita` vêm de DATA.sales (VAZIO neste funil — não há aba de
-   Compradores, então Vendas/Fat. ficam "-") — um registro POR COMPRA, na data REAL da compra (nunca a data da
+   `vendas`/`fat`/`receita` vêm de DATA.sales (neste funil: 1 venda de ingresso por
+   comprador da aba Leads, fat = coluna "oferta") — um registro POR COMPRA, na data REAL da compra (nunca a data da
    conversa). `salesActive()` filtra por essa data e se propaga em
    buildAgg/daily/totals junto com fL/fM, acendendo funil, cards, colunas das
    tabelas e Top/Piores anúncios. Agendamentos/Reuniões Realizadas não têm fonte
@@ -459,17 +459,17 @@ function comboChart(id, d){
   const cLeads=cvar('--chart-leads'), cMqls=cvar('--chart-mqls'), cGasto=cvar('--chart-gasto'), cCpl=cvar('--chart-cpl')||cink(), cCpmql=cvar('--chart-cpmql');
   charts[id]=new Chart(el,{
     data:{labels, datasets:[
-      {type:'bar',label:'Leads',data:d.map(x=>x.leads),backgroundColor:cLeads,yAxisID:'y',borderRadius:3,order:3},
+      {type:'bar',label:'Vendas',data:d.map(x=>x.leads),backgroundColor:cLeads,yAxisID:'y',borderRadius:3,order:3},
       {type:'bar',label:'MQLs',data:d.map(x=>x.mqls),backgroundColor:cMqls,yAxisID:'y',borderRadius:3,order:3},
       {type:'line',label:'Gasto',data:d.map(x=>+(x.sp*taxf()).toFixed(2)),borderColor:cGasto,backgroundColor:cGasto,yAxisID:'y1',borderWidth:2,pointRadius:2,tension:.25,order:1},
-      {type:'line',label:'CPL',data:d.map(x=>x.leads?+((x.sp*taxf())/x.leads).toFixed(2):null),borderColor:cCpl,backgroundColor:cCpl,yAxisID:'y1',borderWidth:2,pointRadius:2,spanGaps:true,tension:.25,order:0},
+      {type:'line',label:'CPA',data:d.map(x=>x.leads?+((x.sp*taxf())/x.leads).toFixed(2):null),borderColor:cCpl,backgroundColor:cCpl,yAxisID:'y1',borderWidth:2,pointRadius:2,spanGaps:true,tension:.25,order:0},
       {type:'line',label:'CPMQL',data:d.map(x=>x.mqls?+((x.sp*taxf())/x.mqls).toFixed(2):null),borderColor:cCpmql,backgroundColor:cCpmql,yAxisID:'y1',borderWidth:2,pointRadius:2,spanGaps:true,tension:.25,order:0},
     ]},
     options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
       plugins:{legend:{labels:{color:cink(),boxWidth:10,usePointStyle:true,font:{size:11}}},
         tooltip:{callbacks:{label:c=>{const v=c.raw; return c.dataset.label+': '+(c.dataset.yAxisID==='y1'?brl(v):intf(v));}}}},
       scales:{x:{ticks:{color:mut,font:{size:10}},grid:{display:false}},
-        y:{position:'left',ticks:{color:mut,font:{size:10}},grid:{color:gr},beginAtZero:true,title:{display:true,text:'Leads / MQLs',color:mut,font:{size:10}}},
+        y:{position:'left',ticks:{color:mut,font:{size:10}},grid:{color:gr},beginAtZero:true,title:{display:true,text:'Vendas / MQLs',color:mut,font:{size:10}}},
         y1:{position:'right',ticks:{color:mut,font:{size:10}},grid:{display:false},beginAtZero:true,title:{display:true,text:'R$',color:mut,font:{size:10}}}}}
   });
 }
@@ -600,11 +600,9 @@ function renderGeralCore(ids){
     ['Impressões', intf(t.im), [['CPM',brl(dv.cpm)]]],
     ['Cliques', intf(t.cl), [['CTR',pct(dv.ctr)],['CPC',brl(dv.cpc)]]],
     ['Page Views', intf(t.pv), [['CR',pct(dv.cr)],['CPV',brl(dv.cpv)]]],
-    ['Leads', intf(t.leads), [['CPL',brl(dv.cpl)],['ConvLP',pct(dv.convlp)]]],
+    ['Vendas (ingressos)', intf(t.leads), [['CPA',brl(dv.cpl)],['Conv. LP',pct(dv.convlp)]]],
     [MQL_LABEL, intf(t.mqls), [['Tx‑MQL',pct(dv.tx)],['CPMQL',brl(dv.cpmql)]], false, 'hl-mql'],
-    ['Vendas', s.vendas!=null?intf(s.vendas):NA, [['ConvMQL',s.convmql!=null?pct(s.convmql):NA],['CAC',s.cac!=null?brl(s.cac):NA]], s.vendas==null],
-    ['Receita', s.receita!=null?brl(s.receita):NA, [['ROAS',s.roasReceita!=null?numf(s.roasReceita):NA],['Ticket',s.tmReceita!=null?brl(s.tmReceita):NA]], s.receita==null, 'hl-fat'],
-    ['Faturamento', s.fat!=null?brl(s.fat):NA, [['ROAS',s.roas!=null?numf(s.roas):NA],['Ticket',s.tm!=null?brl(s.tm):NA]], s.fat==null, 'hl-fat'],
+    ['Faturamento', s.fat!=null?brl(s.fat):NA, [['ROAS',s.roas!=null?numf(s.roas):NA],['Ticket médio',s.tm!=null?brl(s.tm):NA]], s.fat==null, 'hl-fat'],
   ];
   document.getElementById(ids.funnel).innerHTML=funnelHTML(steps);
   // ---- Mar05: métricas secundárias mais úteis (não repetem o funil) ----
@@ -620,7 +618,7 @@ function renderGeralCore(ids){
   const concTop=(t.mqls&&topAd)?topAd.m/t.mqls:null;
   const adShort=s=>{ s=String(s||'—'); return s.length>22?s.slice(0,21)+'…':s; };
   const k2=[
-    {label:'MQLs por dia (média)',val:numf(t.mqls/nDays),aux:numf(t.leads/nDays)+' leads/dia'},
+    {label:'MQLs por dia (média)',val:numf(t.mqls/nDays),aux:numf(t.leads/nDays)+' vendas/dia'},
     {label:'Melhor CPMQL (anúncio)',val:bestAd?brl(bestAd.v):'-',aux:bestAd?adShort(bestAd.ad):'—'},
     {label:'Top anúncio (MQLs)',val:topAd?intf(topAd.m):'-',aux:topAd?adShort(topAd.ad):'—'},
     {label:'Concentração top anúncio',val:pct(concTop),aux:'% dos MQLs no melhor anúncio'},
@@ -742,8 +740,8 @@ const AD_COLS=[
   {k:'ad',label:'Anúncio',dim:true,stk:'l1'},{k:'status',label:'Status',dim:true,stk:'l2'},
   {k:'camp',label:'Campanha',dim:true},{k:'adset',label:'Conjunto',dim:true},
   {k:'gasto',label:'Gasto'},{k:'im',label:'Impr.'},{k:'cpm',label:'CPM'},{k:'ctr',label:'CTR'},
-  {k:'leads',label:'Leads'},{k:'cpl',label:'CPL'},{k:'mqls',label:'MQLs'},{k:'tx',label:'Tx‑MQL'},{k:'cpmql',label:'CPMQL'},
-  {k:'convmql',label:'ConvMQL'},{k:'vendas',label:'Vendas'},{k:'cac',label:'CAC'},{k:'fat',label:'Faturamento'},{k:'roas',label:'ROAS'},
+  {k:'leads',label:'Vendas'},{k:'cpl',label:'CPA'},{k:'mqls',label:'MQLs'},{k:'tx',label:'Tx‑MQL'},{k:'cpmql',label:'CPMQL'},
+  {k:'fat',label:'Faturamento'},{k:'roas',label:'ROAS'},
   {k:'link',label:'Link',dim:true,stk:'r'},
 ];
 function adRowCells(ad,a,struct){
@@ -763,12 +761,9 @@ function relRenderAdTable(id,list){
     {key:'camp',label:'Campanha',type:'dim',big:true},{key:'adset',label:'Conjunto',type:'dim',big:true},
     {key:'gasto',label:'Gasto',type:'brl'},{key:'im',label:'Impr.',type:'int'},
     {key:'cpm',label:'CPM',type:'brl'},{key:'ctr',label:'CTR',type:'pct'},
-    {key:'leads',label:'Leads',type:'int'},{key:'cpl',label:'CPL',type:'brl'},
+    {key:'leads',label:'Vendas',type:'int'},{key:'cpl',label:'CPA',type:'brl'},
     {key:'mqls',label:'MQLs',type:'int'},{key:'tx',label:'Tx‑MQL',type:'pct'},
     {key:'cpmql',label:'CPMQL',type:'brl'},
-    {key:'convmql',label:'ConvMQL',type:'pct'},
-    {key:'vendas',label:'Vendas',type:'int'},
-    {key:'cac',label:'CAC',type:'brl'},
     {key:'fat',label:'Faturamento',type:'brl'},
     {key:'roas',label:'ROAS',type:'num'},
     {key:'link',label:'Link',type:'html',w:90,stk:'r'},
@@ -944,18 +939,17 @@ const DAILY_COLS=[
   {key:'date',label:'Data',type:'date'},{key:'wd',label:'Dia',type:'dim',w:70},
   {key:'gasto',label:'Gasto',type:'brl',heat:'gasto'},{key:'cpm',label:'CPM',type:'brl'},
   {key:'ctr',label:'CTR',type:'pct'},{key:'cr',label:'CR',type:'pct'},{key:'convlp',label:'ConvLP',type:'pct'},
-  {key:'leads',label:'Leads',type:'int',heat:'leads'},{key:'cpl',label:'CPL',type:'brl'},
+  {key:'leads',label:'Vendas',type:'int',heat:'leads'},{key:'cpl',label:'CPA',type:'brl'},
   {key:'tx',label:'Tx‑MQL',type:'pct'},{key:'mqls',label:'MQLs',type:'int',heat:'mqls'},{key:'cpmql',label:'CPMQL',type:'brl'},
   {key:'chk',label:'Checkouts',type:'int'},{key:'vischk',label:'VisCHK',type:'pct'},
-  {key:'convmql',label:'ConvMQL',type:'pct'},{key:'vendas',label:'Vendas',type:'int',heat:'vendas'},{key:'cac',label:'CAC',type:'brl'},
-  {key:'fat',label:'Fat.',type:'brl'},{key:'receita',label:'Receita',type:'brl'},{key:'roas',label:'ROAS',type:'num',heat:'roas'},
+  {key:'fat',label:'Faturamento',type:'brl',heat:'vendas'},{key:'tm',label:'Ticket médio',type:'brl'},{key:'roas',label:'ROAS',type:'num',heat:'roas'},
 ];
 function dailyCells(x,d,isTotal){
   const s=salesOf(x);
   return {date:isTotal?null:x.d, wd:isTotal?'':weekday(x.d), gasto:d.gasto, cpm:d.cpm, ctr:d.ctr, cr:d.cr, convlp:d.convlp,
     chk:d.chk, vischk:d.vischk,
     leads:x.leads, cpl:d.cpl, tx:d.tx, mqls:x.mqls, cpmql:d.cpmql,
-    convmql:s.convmql, vendas:s.vendas, cac:s.cac, fat:s.fat, receita:s.receita, roas:s.roas};
+    convmql:s.convmql, vendas:s.vendas, cac:s.cac, fat:s.fat, tm:s.tm, receita:s.receita, roas:s.roas};
 }
 
 /* ---------------- PAGE 2: Captura Meta Ads ---------------- */
@@ -985,11 +979,9 @@ function renderMeta(){
     ['Impressões', intf(t.im), [['CPM',brl(dv.cpm)],['Frequência',NA]]],
     ['Cliques', intf(t.cl), [['CTR',pct(dv.ctr)],['CPC',brl(dv.cpc)]]],
     ['Page Views', intf(t.pv), [['CR',pct(dv.cr)],['CPV',brl(dv.cpv)]]],
-    ['Leads', intf(t.leads), [['CPL',brl(dv.cpl)],['ConvLP',pct(dv.convlp)]]],
+    ['Vendas (ingressos)', intf(t.leads), [['CPA',brl(dv.cpl)],['Conv. LP',pct(dv.convlp)]]],
     [MQL_LABEL, intf(t.mqls), [['Tx‑MQL',pct(dv.tx)],['CPMQL',brl(dv.cpmql)]], false, 'hl-mql'],
-    ['Vendas', s.vendas!=null?intf(s.vendas):NA, [['ConvMQL',s.convmql!=null?pct(s.convmql):NA],['CAC',s.cac!=null?brl(s.cac):NA]], s.vendas==null],
-    ['Receita', s.receita!=null?brl(s.receita):NA, [['ROAS',s.roasReceita!=null?numf(s.roasReceita):NA],['Ticket',s.tmReceita!=null?brl(s.tmReceita):NA]], s.receita==null, 'hl-fat'],
-    ['Faturamento', s.fat!=null?brl(s.fat):NA, [['ROAS',s.roas!=null?numf(s.roas):NA],['Ticket',s.tm!=null?brl(s.tm):NA]], s.fat==null, 'hl-fat'],
+    ['Faturamento', s.fat!=null?brl(s.fat):NA, [['ROAS',s.roas!=null?numf(s.roas):NA],['Ticket médio',s.tm!=null?brl(s.tm):NA]], s.fat==null, 'hl-fat'],
   ];
   document.getElementById('metaFunnel').innerHTML=funnelHTML(steps);
 
@@ -1011,7 +1003,7 @@ function renderMeta(){
   renderTable({id:'mTopCac', center:true,
     cols:[{key:'dim',label:'Anúncios',type:'dim',big:true},{key:'mqls',label:'MQLs',type:'int'},
       {key:'cpmql',label:'CPMQL',type:'brl'},{key:'vendas',label:'Vendas',type:'int'},
-      {key:'cac',label:'CAC',type:'brl'},{key:'fat',label:'Fat.',type:'brl'},{key:'roas',label:'ROAS',type:'num'}],
+      {key:'cac',label:'CPA',type:'brl'},{key:'fat',label:'Fat.',type:'brl'},{key:'roas',label:'ROAS',type:'num'}],
     rows:topCacRows});
 
   const dl=daily(fL,fM,fS).slice().reverse();
@@ -1031,11 +1023,10 @@ function renderMeta(){
     {key:'dim',label:'',type:'dim',big:true,band:'l'},{key:'gasto',label:'Gasto',type:'brl',band:'l'},
     {key:'cpm',label:'CPM',type:'brl'},
     {key:'ctr',label:'CTR',type:'pct'},{key:'cr',label:'CR',type:'pct'},{key:'convlp',label:'ConvLP',type:'pct'},
-    {key:'leads',label:'Leads',type:'int'},{key:'cpl',label:'CPL',type:'brl'},
+    {key:'leads',label:'Vendas',type:'int'},{key:'cpl',label:'CPA',type:'brl'},
     {key:'tx',label:'Tx‑MQL',type:'pct'},
     {key:'mqls',label:'MQLs',type:'int'},{key:'cpmql',label:'CPMQL',type:'brl'},
-    {key:'convmql',label:'ConvMQL',type:'pct'},{key:'vendas',label:'Vendas',type:'int'},{key:'cac',label:'CAC',type:'brl'},
-    {key:'fat',label:'Fat.',type:'brl'},{key:'receita',label:'Receita',type:'brl'},{key:'roas',label:'ROAS',type:'num'},
+    {key:'fat',label:'Fat.',type:'brl'},{key:'roas',label:'ROAS',type:'num'},
   ];
   function hierRows(map){ return Object.entries(map).map(([k,a])=>{const d=derive(a),s=salesOf(a);
     return {k, cells:{dim:k,gasto:d.gasto,cpm:d.cpm,ctr:d.ctr,cr:d.cr,convlp:d.convlp,leads:a.leads,cpl:d.cpl,tx:d.tx,mqls:a.mqls,cpmql:d.cpmql,
@@ -1174,15 +1165,15 @@ const SC_MIX=SCORING.mix_referencia||{A:.25,B:.30,C:.27,D:.18};
 const SC_MIN=SCORING.faixas||{A:29,B:18,C:9,D:0};
 const SC_ROAS_MIN=SCORING.roas_minimo||3;
 const SC_SAMPLE_MIN=10;   // leads mínimos p/ o sinal de conjunto/criativo deixar de ser "amostra pequena"
-function scNew(){ return {sp:0,leads:0,ps:0,A:0,B:0,C:0,D:0}; }
-function scAdd(a,l){ a.leads++; a.ps+=l.ps||0; a[l.fx||'D']++; }
+function scNew(){ return {sp:0,leads:0,ps:0,fat:0,A:0,B:0,C:0,D:0}; }
+function scAdd(a,l){ a.leads++; a.ps+=l.ps||0; a.fat+=l.of||0; a[l.fx||'D']++; }
 function scAgg(fL,fM,keyFn){ const m={}; const g=k=>m[k]||(m[k]=scNew());
   fM.forEach(r=>{ const k=keyFn(r); if(k==null) return; g(k).sp+=r.sp; });
   fL.forEach(l=>{ const k=keyFn(l); if(k==null) return; scAdd(g(k),l); });
   return m; }
 function scDerive(a){
   const g=a.sp*TAX, rec=FX.reduce((s,f)=>s+a[f]*SC_VAL[f],0), o={gasto:g, leads:a.leads, receita:rec,
-    roas:g>0?rec/g:null, cpl:a.leads?g/a.leads:null, ps:a.leads?a.ps/a.leads:null};
+    roas:g>0?rec/g:null, fat:a.fat, roasReal:g>0?a.fat/g:null, cpl:a.leads?g/a.leads:null, ps:a.leads?a.ps/a.leads:null};
   FX.forEach(f=>{ o[f]=a[f]; o['p'+f]=a.leads?a[f]/a.leads:null; o['cpl'+f]=a[f]?g/a[f]:null; });
   return o; }
 /* sinal do grupo (seção 10 da spec) */
@@ -1199,8 +1190,8 @@ const scCplCls=f=>r=>{ const v=r.cells['cpl'+f]; return v==null||!isFinite(v)?''
 function scCols(dimKey,dimLabel,dimType,signal){
   const c=[{key:dimKey,label:dimLabel,type:dimType,big:dimType==='dim'}];
   if(dimType==='date') c.push({key:'wd',label:'Dia',type:'dim',w:70});
-  c.push({key:'gasto',label:'Gasto real',type:'brl',heat:'gasto'},{key:'leads',label:'Leads',type:'int',heat:'leads'},
-    {key:'cpl',label:'CPL',type:'brl'});
+  c.push({key:'gasto',label:'Gasto real',type:'brl',heat:'gasto'},{key:'leads',label:'Vendas',type:'int',heat:'leads'},
+    {key:'cpl',label:'CPA',type:'brl'},{key:'fat',label:'Faturamento',type:'brl'},{key:'roasReal',label:'ROAS real',type:'num',cls:scRoasCls('roasReal')});
   FX.forEach(f=>c.push({key:f,label:f,type:'int'}));
   FX.forEach(f=>c.push({key:'p'+f,label:'% '+f,type:'pct'}));
   c.push({key:'cplA',label:'Custo/lead A',type:'brl',cls:scCplCls('A')},
@@ -1231,7 +1222,7 @@ function scDailyChart(id,fL,fM){
       plugins:{legend:{labels:{color:cink(),boxWidth:10,usePointStyle:true,font:{size:11}}},
         tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.dataset.yAxisID==='y1'?numf(c.raw):intf(c.raw))}}},
       scales:{x:{stacked:true,ticks:{color:mut,font:{size:10}},grid:{display:false}},
-        y:{stacked:true,beginAtZero:true,ticks:{color:mut,precision:0,font:{size:10}},grid:{color:gr},title:{display:true,text:'Leads',color:mut,font:{size:10}}},
+        y:{stacked:true,beginAtZero:true,ticks:{color:mut,precision:0,font:{size:10}},grid:{color:gr},title:{display:true,text:'Vendas',color:mut,font:{size:10}}},
         y1:{position:'right',beginAtZero:true,ticks:{color:mut,font:{size:10}},grid:{display:false},title:{display:true,text:'ROAS proj.',color:mut,font:{size:10}}}}}});
 }
 function renderScore(){
@@ -1245,7 +1236,8 @@ function renderScore(){
     {label:'ROAS projetado',val:numf(d.roas),aux:'mínimo da ação: '+SC_ROAS_MIN,hero:true},
     {label:'Receita projetada',val:brl(d.receita),aux:'Σ leads × valor por lead'},
     {label:'Gasto real',val:brl(d.gasto),aux:'Meta × '+String(TAX).replace('.',',')+' (imposto)'},
-    {label:'Leads',val:intf(d.leads),aux:'CPL '+brl(d.cpl)+' · '+pct(d.ps)+' c/ pesquisa'},
+    {label:'Vendas (ingressos)',val:intf(d.leads),aux:'CPA '+brl(d.cpl)+' · '+pct(d.ps)+' c/ pesquisa'},
+    {label:'Faturamento ingressos',val:brl(d.fat),aux:'ROAS real '+numf(d.roasReal)},
     {label:'Custo por lead A',val:brl(d.cplA),aux:'teto R$ '+nf0.format(SC_CMAX.A)},
     {label:'% faixa A',val:pct(d.pA),aux:'referência '+pct(SC_MIX.A)},
     {label:'% faixas A+B',val:pct(d.leads?(d.A+d.B)/d.leads:null),aux:'referência '+pct(SC_MIX.A+SC_MIX.B)},
@@ -1259,8 +1251,8 @@ function renderScore(){
     pts:rng[f], leads:d[f], share:d['p'+f], mix:SC_MIX[f], dev:d['p'+f]==null?null:d['p'+f]-SC_MIX[f],
     cplX:d['cpl'+f], cmax:SC_CMAX[f], val:SC_VAL[f], rec:d[f]*SC_VAL[f]}}));
   renderTable({id:'scFaixas', center:true, fit:true, cols:[
-    {key:'fx',label:'Faixa',type:'html',w:70},{key:'pts',label:'Pontos',type:'dim',w:100},{key:'leads',label:'Leads',type:'int'},
-    {key:'share',label:'% leads',type:'pct'},{key:'mix',label:'Mix ref.',type:'pct'},
+    {key:'fx',label:'Faixa',type:'html',w:70},{key:'pts',label:'Pontos',type:'dim',w:100},{key:'leads',label:'Vendas',type:'int'},
+    {key:'share',label:'% vendas',type:'pct'},{key:'mix',label:'Mix ref.',type:'pct'},
     {key:'dev',label:'Desvio',type:'pct',cls:r=>{const v=r.cells.dev; return v==null?'':(Math.abs(v)<0.05?'':(v>0===(r.k==='A'||r.k==='B')?'sc-good':'sc-warn'));}},
     {key:'cplX',label:'Custo/lead',type:'brl',cls:r=>{const v=r.cells.cplX; return v==null?'':(v<=r.cells.cmax?'sc-good':'sc-bad');}},
     {key:'cmax',label:'Teto custo/lead',type:'brl'},{key:'val',label:'Vale por lead',type:'brl'},{key:'rec',label:'Receita proj.',type:'brl'}],
@@ -1279,7 +1271,7 @@ function setPage(p){ STATE.page=p;
   document.getElementById('page-meta').classList.toggle('active',p==='meta');
   document.getElementById('page-rel').classList.toggle('active',p==='rel');
   document.getElementById('page-score').classList.toggle('active',p==='score');
-  document.getElementById('ptitle').textContent = p==='meta'?'Captura Meta Ads':(p==='rel'?'Relatório':(p==='score'?'Lead Scoring MFA':'Visão Geral de Leads'));
+  document.getElementById('ptitle').textContent = p==='meta'?'Captura Meta Ads':(p==='rel'?'Relatório':(p==='score'?'Lead Scoring MFA':'Visão Geral de Vendas'));
   document.getElementById('navToggle').checked=false;
   history.replaceState(null,'', '#'+p);
   renderAll();
