@@ -73,21 +73,25 @@ os Insights.
 
 ## Contexto do funil
 
-**Funil de High Ticket (<<PREENCHER: nome do cliente>>)** — <<PREENCHER: descrição
-curta do cliente/oferta>>. Funil de captura via WhatsApp com venda 1:1 (comercial
-fecha por conversa/reunião, não carrinho direto): o anúncio no Meta Ads leva
-a uma página de captura com botão do WhatsApp; ao clicar, o lead chama no
-WhatsApp Business do cliente e o webhook de mensageria dispara na 1ª mensagem,
-que cai na aba **Conversas** (fonte principal de leads deste dashboard). O
-critério de qualificação (MQL) é <<PREENCHER: critério de MQL do cliente, ex.
-"o lead ser médico">> — se qualificado, segue a conversa com o comercial até a
-venda (registrada na aba de Compradores e cruzada de volta ao anúncio por telefone).
+**Funil "Venda de Ingressos" (Nubia Oliveira)** — lançamento pago. Sigla do
+funil nas campanhas: **`SS-OUT26`** (ex. `SS-OUT26 | E2-CAP | P1-QUENTE | LEAD |
+ABO | 2026-09-24 | Teste de Criativos`; `E2-CAP` = etapa de captação,
+`P1-QUENTE` = público quente). O anúncio no Meta Ads leva a uma landing page de
+inscrição; cada inscrição cai na aba **Leads** da planilha de Leads (com
+`utm_campaign`/`utm_medium`/`utm_content`/`utm_term` = campanha/conjunto/
+anúncio/posicionamento), que é a fonte de leads deste dashboard. As respostas
+da pesquisa ficam na aba **Pesquisa** (chave = email). **O critério de MQL
+ainda não foi definido** pelo estrategista — até lá MQLs = 0 e CPMQL/Tx‑MQL
+aparecem "-"; os Insights devem avaliar o funil por **CPL, CTR, CPM e taxa
+de conversão da LP (ConvLP = Leads / Landing Page Views)**. Este funil **não tem
+Vendas/Faturamento** conectados (sem aba de compradores).
 
 ```
-Impressões → Cliques/abertura do WhatsApp → Leads → MQLs → Vendas → Faturamento
+Impressões → Cliques → Landing Page Views → Leads (inscrições) → [MQLs: a definir]
 ```
 
-- **MQL** = coluna de qualificação (<<PREENCHER: nome da coluna de MQL>>) == "Sim" (ver `build.py` → `is_medico`).
+- **MQL** = ainda não definido (ver `build.py` → `is_mql`; quando vier, será
+  lido da aba Pesquisa cruzada por email).
 - **Agendamento** = o lead qualificado marcou horário de reunião com o comercial.
 - **Reunião Realizada** = a reunião de fato aconteceu (o lead compareceu). O
   inverso disso é o **No‑Show** (agendou e não compareceu) — a métrica de alerta

@@ -4,16 +4,17 @@
 > projeto. Este arquivo é um resumo para agentes/ferramentas que seguem a
 > convenção `AGENTS.md`.
 >
-> **Este é um TEMPLATE limpo.** Todos os valores do cliente estão como
-> `<<PREENCHER: descrição>>`.
+> **Configurado para Nubia Oliveira — funil "Venda de Ingressos" (sigla `SS-OUT26`).**
+> Os marcadores do template já foram todos preenchidos; o checklist abaixo fica
+> como referência para replicar o modelo. MQL ainda não definido (`is_mql`).
 
 ## ✅ CHECKLIST DE NOVO CLIENTE (fazer em ordem)
 
-1. **`build/build.py` — constantes do topo:** `SPREADSHEET_ID`, `GID_CONVERSAS`
-   (fonte principal), `GID_LEADS` (legado, só contado), `GID_META`, `GID_SALES`,
+1. **`build/build.py` — constantes do topo:** `META_SPREADSHEET_ID`, `GID_META`,
+   `LEADS_SPREADSHEET_ID`, `GID_LEADS` (fonte principal), `GID_PESQUISA`,
    `CLIENT_NAME`, `MAIN_PRODUCT`, `MAIN_PRODUCT_PREFIX`, `TAX_FACTOR`.
-2. **`build/build.py` — critério de MQL:** ajustar `is_medico()` e os aliases da
-   coluna de qualificação em `process()` ao cabeçalho da aba Conversas do cliente.
+2. **`build/build.py` — critério de MQL:** implementar `is_mql()` e ajustar os
+   aliases de coluna em `process()` ao cabeçalho da aba de Leads do cliente.
 3. **`build/app.js`:** revisar os rótulos fixos `'MQLs (...)'` e o agrupamento de
    "faixa"/especialidade (o critério de `build.py` não propaga sozinho a esses textos).
 4. **`build/template.html`:** preencher `<title>` e o logo (`logo-main`/`logo-sub`).
@@ -46,7 +47,7 @@ coleta/redação dos Insights. Ver `GUIA-REPLICACAO.md` para os detalhes de
 implementação (filtro cruzado, engine de tabela, gráficos Chart.js).
 
 > `template.html` e `app.js` são engine, mas carregam o nome do cliente em pontos
-> pontuais (título/logo e um comentário) — já marcados como `<<PREENCHER>>`.
+> pontuais (título/logo, rótulos de MQL e dos gráficos de origem/posicionamento).
 
 ## Específico do cliente (troca a cada replicação)
 `build/build.py`, `build/identidade-visual.css` (cores, se aplicável),

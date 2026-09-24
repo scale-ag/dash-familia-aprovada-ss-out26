@@ -10,7 +10,7 @@ Na **primeira execução** o próprio workflow **habilita o GitHub Pages**
 automaticamente (`actions/configure-pages` com `enablement: true`). Depois de rodar
 uma vez, a página fica no ar em:
 
-**`https://<<PREENCHER: owner do GitHub>>.github.io/<<PREENCHER: nome do repositório>>/`**
+**`https://scale-ag.github.io/dash-familia-aprovada-ss-out26/`**
 
 Se preferir disparar a primeira execução na mão: aba **Actions** → *Build & Deploy
 Dashboard* → **Run workflow**.
@@ -18,7 +18,7 @@ Dashboard* → **Run workflow**.
 ## Passo 2 — Token do GitHub (fine-grained)
 
 GitHub → *Settings* → *Developer settings* → **Fine-grained tokens** → *Generate*:
-- Repository access: **Only select repositories → `<<PREENCHER: nome do repositório>>`**
+- Repository access: **Only select repositories → `scale-ag/dash-familia-aprovada-ss-out26`**
 - Permissions → **Actions: Read and write**
 - (opcional) validade longa
 
@@ -28,11 +28,12 @@ revogue-o e gere um novo imediatamente.
 
 ## Passo 3 — Criar o cron job em https://cron-job.org
 
-Crie um job e preencha **exatamente** (um valor por vez):
+Crie um job e preencha **exatamente** (um valor por vez). Troque `TOKEN_AQUI`
+pelo token fine-grained do Passo 2 (nunca comitar o token):
 
 ### URL
 ```
-https://api.github.com/repos/<<PREENCHER: owner>>/<<PREENCHER: repositório>>/actions/workflows/deploy.yml/dispatches
+https://api.github.com/repos/scale-ag/dash-familia-aprovada-ss-out26/actions/workflows/deploy.yml/dispatches
 ```
 
 ### Método (Request method)
@@ -45,18 +46,42 @@ POST
 A cada 30 minutos  (Every 30 minutes)
 ```
 
-### Headers (chave → valor), um por linha
+### Headers — nome e valor em blocos separados (4 headers)
+
+**Header 1 — nome**
 ```
-Accept: application/vnd.github+json
+Accept
 ```
+**Header 1 — valor**
 ```
-Authorization: Bearer <<PREENCHER: TOKEN fine-grained do GitHub — nunca comitar>>
+application/vnd.github+json
 ```
+
+**Header 2 — nome**
 ```
-X-GitHub-Api-Version: 2022-11-28
+Authorization
 ```
+**Header 2 — valor**
 ```
-Content-Type: application/json
+Bearer TOKEN_AQUI
+```
+
+**Header 3 — nome**
+```
+X-GitHub-Api-Version
+```
+**Header 3 — valor**
+```
+2022-11-28
+```
+
+**Header 4 — nome**
+```
+Content-Type
+```
+**Header 4 — valor**
+```
+application/json
 ```
 
 ### Request body
