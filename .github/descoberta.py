@@ -33,6 +33,8 @@ for tag, sid in SHEETS.items():
                     line += f"  ex={[r[i] for r in body[:2] if i < len(r)]} ult={[r[i] for r in body[-2:] if i < len(r)]}"
                 else:
                     line += f"  distintos={len(vals)} top={vals.most_common(25)}"
+            elif re.search(r"(tel|phone|whats|cpf|mail|nome|name|celular|fone)", c, re.I) and not re.search(r"(campaign|ad set|ad name)", c, re.I):
+                pass
             elif body and re.fullmatch(r"[\d.,R$ %\-]*", (body[0][i] if i < len(body[0]) else "")):
                 line += f"  ex_num={body[0][i] if i < len(body[0]) else ''}"
             print(line)
