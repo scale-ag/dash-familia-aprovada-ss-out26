@@ -1,6 +1,6 @@
 {
-  "generated_at": "17/10/2026 04:12",
-  "generated_at_iso": "2026-10-17T04:12:43.471967-03:00",
+  "generated_at": "18/10/2026 04:26",
+  "generated_at_iso": "2026-10-18T04:26:26.731942-03:00",
   "fonte": "Números brutos agregados a partir do funil (mídia paga × Leads) — insumo para a Routine do Claude escrever build/relatorios.json (Insights de Tráfego). Sem interpretação/texto aqui, só aritmética.",
   "params": {
     "tax_factor": 1.1381,
@@ -15,8 +15,8 @@
     "hoje": {
       "label": "Hoje",
       "range": {
-        "start": "2026-10-17",
-        "end": "2026-10-17"
+        "start": "2026-10-18",
+        "end": "2026-10-18"
       },
       "totais": {
         "spend": 0.0,
@@ -33,22 +33,22 @@
       },
       "serie_diaria": [],
       "nota_saude": {
-        "nota": 3.4,
+        "nota": 0.0,
         "provisoria": true,
-        "classificacao": "Crítico",
+        "classificacao": "Crítico grave",
         "motivo": "Nota provisória: sem dados suficientes para aquisicao, conversao_pagina, qualificacao, vendas.",
         "subnotas": {
           "aquisicao": null,
           "conversao_pagina": null,
           "qualificacao": null,
           "vendas": null,
-          "consistencia": 6.8,
+          "consistencia": 0.0,
           "confiabilidade_dados": 0.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "Hoje",
-        "periodo_range": "17/10/2026 a 17/10/2026",
+        "periodo_range": "18/10/2026 a 18/10/2026",
         "gasto": "R$ 0,00",
         "cpm": "—",
         "ctr": "—",
@@ -63,34 +63,34 @@
         "cac": "Não disponível",
         "roas": "Não disponível",
         "ticket_medio": "Não disponível",
-        "saude_funil": "3.4/10 — Crítico (provisória)"
+        "saude_funil": "0.0/10 — Crítico grave (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 3040.89,
-          "impr": 68368.0,
-          "clicks": 710.0,
-          "leads": 17,
-          "mqls": 1,
-          "cpm": 44.48,
-          "ctr": 0.0104,
-          "cpl": 178.88,
-          "convform": 0.0239,
-          "txmql": 0.0588,
-          "cpmql": 3040.89
+          "spend": 2289.79,
+          "impr": 53872.0,
+          "clicks": 582.0,
+          "leads": 12,
+          "mqls": 0,
+          "cpm": 42.5,
+          "ctr": 0.0108,
+          "cpl": 190.82,
+          "convform": 0.0206,
+          "txmql": 0.0,
+          "cpmql": null
         },
         "14d": {
-          "spend": 9707.64,
-          "impr": 177243.0,
-          "clicks": 2038.0,
-          "leads": 95,
+          "spend": 9349.7,
+          "impr": 170423.0,
+          "clicks": 1948.0,
+          "leads": 93,
           "mqls": 7,
-          "cpm": 54.77,
-          "ctr": 0.0115,
-          "cpl": 102.19,
-          "convform": 0.0466,
-          "txmql": 0.0737,
-          "cpmql": 1386.81
+          "cpm": 54.86,
+          "ctr": 0.0114,
+          "cpl": 100.53,
+          "convform": 0.0477,
+          "txmql": 0.0753,
+          "cpmql": 1335.67
         },
         "30d": {
           "spend": 16824.94,
@@ -107,8 +107,8 @@
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-10-16",
-            "end": "2026-10-16"
+            "start": "2026-10-17",
+            "end": "2026-10-17"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
@@ -235,8 +235,8 @@
     "ontem": {
       "label": "Ontem",
       "range": {
-        "start": "2026-10-16",
-        "end": "2026-10-16"
+        "start": "2026-10-17",
+        "end": "2026-10-17"
       },
       "totais": {
         "spend": 0.0,
@@ -253,22 +253,22 @@
       },
       "serie_diaria": [],
       "nota_saude": {
-        "nota": 3.4,
+        "nota": 0.0,
         "provisoria": true,
-        "classificacao": "Crítico",
+        "classificacao": "Crítico grave",
         "motivo": "Nota provisória: sem dados suficientes para aquisicao, conversao_pagina, qualificacao, vendas.",
         "subnotas": {
           "aquisicao": null,
           "conversao_pagina": null,
           "qualificacao": null,
           "vendas": null,
-          "consistencia": 6.8,
+          "consistencia": 0.0,
           "confiabilidade_dados": 0.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "Ontem",
-        "periodo_range": "16/10/2026 a 16/10/2026",
+        "periodo_range": "17/10/2026 a 17/10/2026",
         "gasto": "R$ 0,00",
         "cpm": "—",
         "ctr": "—",
@@ -283,34 +283,34 @@
         "cac": "Não disponível",
         "roas": "Não disponível",
         "ticket_medio": "Não disponível",
-        "saude_funil": "3.4/10 — Crítico (provisória)"
+        "saude_funil": "0.0/10 — Crítico grave (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 3040.89,
-          "impr": 68368.0,
-          "clicks": 710.0,
-          "leads": 17,
-          "mqls": 1,
-          "cpm": 44.48,
-          "ctr": 0.0104,
-          "cpl": 178.88,
-          "convform": 0.0239,
-          "txmql": 0.0588,
-          "cpmql": 3040.89
+          "spend": 2289.79,
+          "impr": 53872.0,
+          "clicks": 582.0,
+          "leads": 12,
+          "mqls": 0,
+          "cpm": 42.5,
+          "ctr": 0.0108,
+          "cpl": 190.82,
+          "convform": 0.0206,
+          "txmql": 0.0,
+          "cpmql": null
         },
         "14d": {
-          "spend": 9707.64,
-          "impr": 177243.0,
-          "clicks": 2038.0,
-          "leads": 95,
+          "spend": 9349.7,
+          "impr": 170423.0,
+          "clicks": 1948.0,
+          "leads": 93,
           "mqls": 7,
-          "cpm": 54.77,
-          "ctr": 0.0115,
-          "cpl": 102.19,
-          "convform": 0.0466,
-          "txmql": 0.0737,
-          "cpmql": 1386.81
+          "cpm": 54.86,
+          "ctr": 0.0114,
+          "cpl": 100.53,
+          "convform": 0.0477,
+          "txmql": 0.0753,
+          "cpmql": 1335.67
         },
         "30d": {
           "spend": 16824.94,
@@ -327,8 +327,8 @@
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-10-15",
-            "end": "2026-10-15"
+            "start": "2026-10-16",
+            "end": "2026-10-16"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
@@ -455,8 +455,8 @@
     "3d": {
       "label": "3 dias",
       "range": {
-        "start": "2026-10-15",
-        "end": "2026-10-17"
+        "start": "2026-10-16",
+        "end": "2026-10-18"
       },
       "totais": {
         "spend": 0.0,
@@ -473,22 +473,22 @@
       },
       "serie_diaria": [],
       "nota_saude": {
-        "nota": 3.4,
+        "nota": 0.0,
         "provisoria": true,
-        "classificacao": "Crítico",
+        "classificacao": "Crítico grave",
         "motivo": "Nota provisória: sem dados suficientes para aquisicao, conversao_pagina, qualificacao, vendas.",
         "subnotas": {
           "aquisicao": null,
           "conversao_pagina": null,
           "qualificacao": null,
           "vendas": null,
-          "consistencia": 6.8,
+          "consistencia": 0.0,
           "confiabilidade_dados": 0.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "3 dias",
-        "periodo_range": "15/10/2026 a 17/10/2026",
+        "periodo_range": "16/10/2026 a 18/10/2026",
         "gasto": "R$ 0,00",
         "cpm": "—",
         "ctr": "—",
@@ -503,34 +503,34 @@
         "cac": "Não disponível",
         "roas": "Não disponível",
         "ticket_medio": "Não disponível",
-        "saude_funil": "3.4/10 — Crítico (provisória)"
+        "saude_funil": "0.0/10 — Crítico grave (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 3040.89,
-          "impr": 68368.0,
-          "clicks": 710.0,
-          "leads": 17,
-          "mqls": 1,
-          "cpm": 44.48,
-          "ctr": 0.0104,
-          "cpl": 178.88,
-          "convform": 0.0239,
-          "txmql": 0.0588,
-          "cpmql": 3040.89
+          "spend": 2289.79,
+          "impr": 53872.0,
+          "clicks": 582.0,
+          "leads": 12,
+          "mqls": 0,
+          "cpm": 42.5,
+          "ctr": 0.0108,
+          "cpl": 190.82,
+          "convform": 0.0206,
+          "txmql": 0.0,
+          "cpmql": null
         },
         "14d": {
-          "spend": 9707.64,
-          "impr": 177243.0,
-          "clicks": 2038.0,
-          "leads": 95,
+          "spend": 9349.7,
+          "impr": 170423.0,
+          "clicks": 1948.0,
+          "leads": 93,
           "mqls": 7,
-          "cpm": 54.77,
-          "ctr": 0.0115,
-          "cpl": 102.19,
-          "convform": 0.0466,
-          "txmql": 0.0737,
-          "cpmql": 1386.81
+          "cpm": 54.86,
+          "ctr": 0.0114,
+          "cpl": 100.53,
+          "convform": 0.0477,
+          "txmql": 0.0753,
+          "cpmql": 1335.67
         },
         "30d": {
           "spend": 16824.94,
@@ -547,28 +547,28 @@
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-10-12",
-            "end": "2026-10-14"
+            "start": "2026-10-13",
+            "end": "2026-10-15"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
-            "spend": 2289.79,
-            "impr": 53872.0,
-            "clicks": 582.0,
-            "leads": 12,
+            "spend": 1741.07,
+            "impr": 42242.0,
+            "clicks": 442.0,
+            "leads": 10,
             "mqls": 0,
-            "cpm": 42.5,
-            "ctr": 0.0108,
-            "cpl": 190.82,
-            "convform": 0.0206,
+            "cpm": 41.22,
+            "ctr": 0.0105,
+            "cpl": 174.11,
+            "convform": 0.0226,
             "txmql": 0.0,
             "cpmql": null
           },
           "variacao": {
             "spend": {
               "atual": 0.0,
-              "anterior": 2289.7889139999997,
-              "delta_abs": -2289.7889,
+              "anterior": 1741.0653799999998,
+              "delta_abs": -1741.0654,
               "delta_pct": -1.0,
               "delta_pp": null,
               "direcao": "melhorou",
@@ -576,8 +576,8 @@
             },
             "impr": {
               "atual": 0.0,
-              "anterior": 53872.0,
-              "delta_abs": -53872.0,
+              "anterior": 42242.0,
+              "delta_abs": -42242.0,
               "delta_pct": -1.0,
               "delta_pp": null,
               "direcao": "piorou",
@@ -585,8 +585,8 @@
             },
             "clicks": {
               "atual": 0.0,
-              "anterior": 582.0,
-              "delta_abs": -582.0,
+              "anterior": 442.0,
+              "delta_abs": -442.0,
               "delta_pct": -1.0,
               "delta_pp": null,
               "direcao": "piorou",
@@ -594,8 +594,8 @@
             },
             "leads": {
               "atual": 0,
-              "anterior": 12,
-              "delta_abs": -12,
+              "anterior": 10,
+              "delta_abs": -10,
               "delta_pct": -1.0,
               "delta_pp": null,
               "direcao": "piorou",
@@ -612,7 +612,7 @@
             },
             "cpm": {
               "atual": null,
-              "anterior": 42.50424922037421,
+              "anterior": 41.21645234600634,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -621,7 +621,7 @@
             },
             "ctr": {
               "atual": null,
-              "anterior": 0.010803385803385803,
+              "anterior": 0.01046351971971024,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -630,7 +630,7 @@
             },
             "cpl": {
               "atual": null,
-              "anterior": 190.8157428333333,
+              "anterior": 174.10653799999997,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -639,7 +639,7 @@
             },
             "convform": {
               "atual": null,
-              "anterior": 0.020618556701030927,
+              "anterior": 0.02262443438914027,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -675,36 +675,23 @@
     "7d": {
       "label": "7 dias",
       "range": {
-        "start": "2026-10-11",
-        "end": "2026-10-17"
+        "start": "2026-10-12",
+        "end": "2026-10-18"
       },
       "totais": {
-        "spend": 3040.89,
-        "impr": 68368.0,
-        "clicks": 710.0,
-        "leads": 17,
-        "mqls": 1,
-        "cpm": 44.48,
-        "ctr": 0.0104,
-        "cpl": 178.88,
-        "convform": 0.0239,
-        "txmql": 0.0588,
-        "cpmql": 3040.89
+        "spend": 2289.79,
+        "impr": 53872.0,
+        "clicks": 582.0,
+        "leads": 12,
+        "mqls": 0,
+        "cpm": 42.5,
+        "ctr": 0.0108,
+        "cpl": 190.82,
+        "convform": 0.0206,
+        "txmql": 0.0,
+        "cpmql": null
       },
       "serie_diaria": [
-        {
-          "d": "2026-10-11",
-          "spend": 751.1,
-          "impr": 14496.0,
-          "clicks": 128.0,
-          "leads": 5,
-          "mqls": 1,
-          "cpm": 51.81,
-          "ctr": 0.0088,
-          "cpl": 150.22,
-          "txmql": 0.2,
-          "cpmql": 751.1
-        },
         {
           "d": "2026-10-12",
           "spend": 548.72,
@@ -746,64 +733,64 @@
         }
       ],
       "nota_saude": {
-        "nota": 6.8,
+        "nota": 3.3,
         "provisoria": true,
-        "classificacao": "Saudável, com atenção",
-        "motivo": "Nota provisória: sem dados suficientes para conversao_pagina, vendas.",
+        "classificacao": "Crítico",
+        "motivo": "Nota provisória: sem dados suficientes para conversao_pagina, qualificacao, vendas.",
         "subnotas": {
           "aquisicao": 10.0,
           "conversao_pagina": null,
-          "qualificacao": 7.3,
+          "qualificacao": null,
           "vendas": null,
-          "consistencia": 6.8,
-          "confiabilidade_dados": 3.3
+          "consistencia": 0.0,
+          "confiabilidade_dados": 0.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "7 dias",
-        "periodo_range": "11/10/2026 a 17/10/2026",
-        "gasto": "R$ 3.040,89",
-        "cpm": "R$ 44,48",
-        "ctr": "1,0%",
+        "periodo_range": "12/10/2026 a 18/10/2026",
+        "gasto": "R$ 2.289,79",
+        "cpm": "R$ 42,50",
+        "ctr": "1,1%",
         "connect_rate": "Não disponível",
         "conv_lp": "Não disponível",
-        "leads": "17",
-        "cpl": "R$ 178,88",
-        "mqls": "1",
-        "cpa_cpmql": "R$ 3.040,89",
+        "leads": "12",
+        "cpl": "R$ 190,82",
+        "mqls": "0",
+        "cpa_cpmql": "—",
         "vendas": "Não disponível",
         "faturamento": "Não disponível",
         "cac": "Não disponível",
         "roas": "Não disponível",
         "ticket_medio": "Não disponível",
-        "saude_funil": "6.8/10 — Saudável, com atenção (provisória)"
+        "saude_funil": "3.3/10 — Crítico (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 3040.89,
-          "impr": 68368.0,
-          "clicks": 710.0,
-          "leads": 17,
-          "mqls": 1,
-          "cpm": 44.48,
-          "ctr": 0.0104,
-          "cpl": 178.88,
-          "convform": 0.0239,
-          "txmql": 0.0588,
-          "cpmql": 3040.89
+          "spend": 2289.79,
+          "impr": 53872.0,
+          "clicks": 582.0,
+          "leads": 12,
+          "mqls": 0,
+          "cpm": 42.5,
+          "ctr": 0.0108,
+          "cpl": 190.82,
+          "convform": 0.0206,
+          "txmql": 0.0,
+          "cpmql": null
         },
         "14d": {
-          "spend": 9707.64,
-          "impr": 177243.0,
-          "clicks": 2038.0,
-          "leads": 95,
+          "spend": 9349.7,
+          "impr": 170423.0,
+          "clicks": 1948.0,
+          "leads": 93,
           "mqls": 7,
-          "cpm": 54.77,
-          "ctr": 0.0115,
-          "cpl": 102.19,
-          "convform": 0.0466,
-          "txmql": 0.0737,
-          "cpmql": 1386.81
+          "cpm": 54.86,
+          "ctr": 0.0114,
+          "cpl": 100.53,
+          "convform": 0.0477,
+          "txmql": 0.0753,
+          "cpmql": 1335.67
         },
         "30d": {
           "spend": 16824.94,
@@ -820,207 +807,165 @@
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-10-04",
-            "end": "2026-10-10"
+            "start": "2026-10-05",
+            "end": "2026-10-11"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
-            "spend": 6666.75,
-            "impr": 108875.0,
-            "clicks": 1328.0,
-            "leads": 78,
-            "mqls": 6,
-            "cpm": 61.23,
-            "ctr": 0.0122,
-            "cpl": 85.47,
-            "convform": 0.0587,
-            "txmql": 0.0769,
-            "cpmql": 1111.13
+            "spend": 7059.91,
+            "impr": 116551.0,
+            "clicks": 1366.0,
+            "leads": 81,
+            "mqls": 7,
+            "cpm": 60.57,
+            "ctr": 0.0117,
+            "cpl": 87.16,
+            "convform": 0.0593,
+            "txmql": 0.0864,
+            "cpmql": 1008.56
           },
           "variacao": {
             "spend": {
-              "atual": 3040.88939,
-              "anterior": 6666.7507989999995,
-              "delta_abs": -3625.8614,
-              "delta_pct": -0.5439,
+              "atual": 2289.7889139999997,
+              "anterior": 7059.9074439999995,
+              "delta_abs": -4770.1185,
+              "delta_pct": -0.6757,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "impr": {
-              "atual": 68368.0,
-              "anterior": 108875.0,
-              "delta_abs": -40507.0,
-              "delta_pct": -0.3721,
+              "atual": 53872.0,
+              "anterior": 116551.0,
+              "delta_abs": -62679.0,
+              "delta_pct": -0.5378,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "clicks": {
-              "atual": 710.0,
-              "anterior": 1328.0,
-              "delta_abs": -618.0,
-              "delta_pct": -0.4654,
+              "atual": 582.0,
+              "anterior": 1366.0,
+              "delta_abs": -784.0,
+              "delta_pct": -0.5739,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "leads": {
-              "atual": 17,
-              "anterior": 78,
-              "delta_abs": -61,
-              "delta_pct": -0.7821,
+              "atual": 12,
+              "anterior": 81,
+              "delta_abs": -69,
+              "delta_pct": -0.8519,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "mqls": {
-              "atual": 1,
-              "anterior": 6,
-              "delta_abs": -5,
-              "delta_pct": -0.8333,
+              "atual": 0,
+              "anterior": 7,
+              "delta_abs": -7,
+              "delta_pct": -1.0,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "cpm": {
-              "atual": 44.478255762930026,
-              "anterior": 61.23307278071182,
-              "delta_abs": -16.7548,
-              "delta_pct": -0.2736,
+              "atual": 42.50424922037421,
+              "anterior": 60.57354672203584,
+              "delta_abs": -18.0693,
+              "delta_pct": -0.2983,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "ctr": {
-              "atual": 0.010384975427100398,
-              "anterior": 0.012197474167623422,
-              "delta_abs": -0.0018,
-              "delta_pct": -0.1486,
-              "delta_pp": -0.18,
+              "atual": 0.010803385803385803,
+              "anterior": 0.011720191160951,
+              "delta_abs": -0.0009,
+              "delta_pct": -0.0782,
+              "delta_pp": -0.09,
               "direcao": "piorou",
               "material": false
             },
             "cpl": {
-              "atual": 178.87584647058821,
-              "anterior": 85.47116408974358,
-              "delta_abs": 93.4047,
-              "delta_pct": 1.0928,
+              "atual": 190.8157428333333,
+              "anterior": 87.15935116049383,
+              "delta_abs": 103.6564,
+              "delta_pct": 1.1893,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "convform": {
-              "atual": 0.023943661971830985,
-              "anterior": 0.058734939759036146,
-              "delta_abs": -0.0348,
-              "delta_pct": -0.5923,
-              "delta_pp": -3.48,
+              "atual": 0.020618556701030927,
+              "anterior": 0.05929721815519766,
+              "delta_abs": -0.0387,
+              "delta_pct": -0.6523,
+              "delta_pp": -3.87,
               "direcao": "piorou",
               "material": true
             },
             "txmql": {
-              "atual": 0.058823529411764705,
-              "anterior": 0.07692307692307693,
-              "delta_abs": -0.0181,
-              "delta_pct": -0.2353,
-              "delta_pp": -1.81,
-              "direcao": "piorou",
-              "material": false
-            },
-            "cpmql": {
-              "atual": 3040.88939,
-              "anterior": 1111.1251331666665,
-              "delta_abs": 1929.7643,
-              "delta_pct": 1.7368,
-              "delta_pp": null,
+              "atual": 0.0,
+              "anterior": 0.08641975308641975,
+              "delta_abs": -0.0864,
+              "delta_pct": -1.0,
+              "delta_pp": -8.64,
               "direcao": "piorou",
               "material": true
+            },
+            "cpmql": {
+              "atual": null,
+              "anterior": 1008.5582062857142,
+              "delta_abs": null,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "sem_dado",
+              "material": false
             }
           }
         }
       },
       "por_campanha": [
         {
-          "spend": 3040.89,
-          "impr": 68368.0,
-          "clicks": 710.0,
-          "leads": 14,
-          "mqls": 1,
-          "cpm": 44.48,
-          "ctr": 0.0104,
-          "cpl": 217.21,
-          "convform": 0.0197,
-          "txmql": 0.0714,
-          "cpmql": 3040.89,
+          "spend": 2289.79,
+          "impr": 53872.0,
+          "clicks": 582.0,
+          "leads": 12,
+          "mqls": 0,
+          "cpm": 42.5,
+          "ctr": 0.0108,
+          "cpl": 190.82,
+          "convform": 0.0206,
+          "txmql": 0.0,
+          "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos"
-        },
-        {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "(orgânico)"
-        },
-        {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "a-proxima-carreira-47-out-d"
-        },
-        {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "{{campaign.name}}"
         }
       ],
       "por_conjunto": [
         {
-          "spend": 2190.76,
-          "impr": 46978.0,
-          "clicks": 395.0,
-          "leads": 13,
-          "mqls": 1,
-          "cpm": 46.63,
-          "ctr": 0.0084,
-          "cpl": 168.52,
-          "convform": 0.0329,
-          "txmql": 0.0769,
-          "cpmql": 2190.76,
+          "spend": 1687.6,
+          "impr": 37539.0,
+          "clicks": 323.0,
+          "leads": 11,
+          "mqls": 0,
+          "cpm": 44.96,
+          "ctr": 0.0086,
+          "cpl": 153.42,
+          "convform": 0.0341,
+          "txmql": 0.0,
+          "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
           "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28"
         },
         {
-          "spend": 425.09,
-          "impr": 10021.0,
-          "clicks": 115.0,
+          "spend": 302.42,
+          "impr": 7223.0,
+          "clicks": 83.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 42.42,
+          "cpm": 41.87,
           "ctr": 0.0115,
           "cpl": null,
           "convform": 0.0,
@@ -1030,77 +975,32 @@
           "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | 11 a 14"
         },
         {
-          "spend": 425.03,
-          "impr": 11369.0,
-          "clicks": 200.0,
+          "spend": 299.78,
+          "impr": 9110.0,
+          "clicks": 176.0,
           "leads": 1,
           "mqls": 0,
-          "cpm": 37.39,
-          "ctr": 0.0176,
-          "cpl": 425.03,
-          "convform": 0.005,
+          "cpm": 32.91,
+          "ctr": 0.0193,
+          "cpl": 299.78,
+          "convform": 0.0057,
           "txmql": 0.0,
           "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
           "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | 07 a 10"
-        },
-        {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "(orgânico)",
-          "conjunto": "(orgânico)"
-        },
-        {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "a-proxima-carreira-47-out-d",
-          "conjunto": "api"
-        },
-        {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "{{campaign.name}}",
-          "conjunto": "{{adset.name}}"
         }
       ],
       "por_anuncio": [
         {
-          "spend": 578.7,
-          "impr": 14031.0,
-          "clicks": 140.0,
-          "leads": 6,
+          "spend": 465.28,
+          "impr": 11894.0,
+          "clicks": 118.0,
+          "leads": 5,
           "mqls": 0,
-          "cpm": 41.24,
-          "ctr": 0.01,
-          "cpl": 96.45,
-          "convform": 0.0429,
+          "cpm": 39.12,
+          "ctr": 0.0099,
+          "cpl": 93.06,
+          "convform": 0.0424,
           "txmql": 0.0,
           "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
@@ -1108,15 +1008,15 @@
           "anuncio": "EST23"
         },
         {
-          "spend": 523.65,
-          "impr": 9324.0,
-          "clicks": 79.0,
+          "spend": 402.91,
+          "impr": 7134.0,
+          "clicks": 62.0,
           "leads": 3,
           "mqls": 0,
-          "cpm": 56.16,
-          "ctr": 0.0085,
-          "cpl": 174.55,
-          "convform": 0.038,
+          "cpm": 56.48,
+          "ctr": 0.0087,
+          "cpl": 134.3,
+          "convform": 0.0484,
           "txmql": 0.0,
           "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
@@ -1124,13 +1024,29 @@
           "anuncio": "EST28"
         },
         {
-          "spend": 455.22,
-          "impr": 10302.0,
-          "clicks": 82.0,
+          "spend": 319.89,
+          "impr": 7305.0,
+          "clicks": 50.0,
+          "leads": 3,
+          "mqls": 0,
+          "cpm": 43.79,
+          "ctr": 0.0068,
+          "cpl": 106.63,
+          "convform": 0.06,
+          "txmql": 0.0,
+          "cpmql": null,
+          "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
+          "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28",
+          "anuncio": "EST25"
+        },
+        {
+          "spend": 308.85,
+          "impr": 7330.0,
+          "clicks": 63.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 44.19,
-          "ctr": 0.008,
+          "cpm": 42.13,
+          "ctr": 0.0086,
           "cpl": null,
           "convform": 0.0,
           "txmql": null,
@@ -1140,12 +1056,12 @@
           "anuncio": "EST27"
         },
         {
-          "spend": 425.09,
-          "impr": 10021.0,
-          "clicks": 115.0,
+          "spend": 302.42,
+          "impr": 7223.0,
+          "clicks": 83.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 42.42,
+          "cpm": 41.87,
           "ctr": 0.0115,
           "cpl": null,
           "convform": 0.0,
@@ -1156,15 +1072,15 @@
           "anuncio": "VID12"
         },
         {
-          "spend": 425.03,
-          "impr": 11369.0,
-          "clicks": 200.0,
+          "spend": 299.78,
+          "impr": 9110.0,
+          "clicks": 176.0,
           "leads": 1,
           "mqls": 0,
-          "cpm": 37.39,
-          "ctr": 0.0176,
-          "cpl": 425.03,
-          "convform": 0.005,
+          "cpm": 32.91,
+          "ctr": 0.0193,
+          "cpl": 299.78,
+          "convform": 0.0057,
           "txmql": 0.0,
           "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
@@ -1172,45 +1088,29 @@
           "anuncio": "VID07"
         },
         {
-          "spend": 380.07,
-          "impr": 8522.0,
-          "clicks": 57.0,
-          "leads": 3,
+          "spend": 122.11,
+          "impr": 2129.0,
+          "clicks": 14.0,
+          "leads": 0,
           "mqls": 0,
-          "cpm": 44.6,
-          "ctr": 0.0067,
-          "cpl": 126.69,
-          "convform": 0.0526,
-          "txmql": 0.0,
+          "cpm": 57.35,
+          "ctr": 0.0066,
+          "cpl": null,
+          "convform": 0.0,
+          "txmql": null,
           "cpmql": null,
-          "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
-          "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28",
-          "anuncio": "EST25"
-        },
-        {
-          "spend": 166.72,
-          "impr": 2733.0,
-          "clicks": 19.0,
-          "leads": 1,
-          "mqls": 1,
-          "cpm": 61.0,
-          "ctr": 0.007,
-          "cpl": 166.72,
-          "convform": 0.0526,
-          "txmql": 1.0,
-          "cpmql": 166.72,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
           "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28",
           "anuncio": "EST24"
         },
         {
-          "spend": 66.2,
-          "impr": 1693.0,
-          "clicks": 15.0,
+          "spend": 55.95,
+          "impr": 1502.0,
+          "clicks": 14.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 39.1,
-          "ctr": 0.0089,
+          "cpm": 37.25,
+          "ctr": 0.0093,
           "cpl": null,
           "convform": 0.0,
           "txmql": null,
@@ -1220,13 +1120,13 @@
           "anuncio": "EST21"
         },
         {
-          "spend": 15.26,
-          "impr": 301.0,
-          "clicks": 2.0,
+          "spend": 9.31,
+          "impr": 200.0,
+          "clicks": 1.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 50.7,
-          "ctr": 0.0066,
+          "cpm": 46.55,
+          "ctr": 0.005,
           "cpl": null,
           "convform": 0.0,
           "txmql": null,
@@ -1236,13 +1136,13 @@
           "anuncio": "EST22"
         },
         {
-          "spend": 4.94,
-          "impr": 72.0,
+          "spend": 3.31,
+          "impr": 45.0,
           "clicks": 1.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 68.6,
-          "ctr": 0.0139,
+          "cpm": 73.6,
+          "ctr": 0.0222,
           "cpl": null,
           "convform": 0.0,
           "txmql": null,
@@ -1250,54 +1150,6 @@
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
           "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28",
           "anuncio": "EST26"
-        },
-        {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "(orgânico)",
-          "conjunto": "(orgânico)",
-          "anuncio": "(orgânico)"
-        },
-        {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "a-proxima-carreira-47-out-d",
-          "conjunto": "api",
-          "anuncio": "(sem anúncio)"
-        },
-        {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "{{campaign.name}}",
-          "conjunto": "{{adset.name}}",
-          "anuncio": "{{ad.name}}"
         }
       ],
       "criativos_consolidado": [
@@ -1310,14 +1162,14 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28"
             }
           ],
-          "spend": 578.7,
-          "impr": 14031.0,
-          "clicks": 140.0,
-          "leads": 6,
+          "spend": 465.28,
+          "impr": 11894.0,
+          "clicks": 118.0,
+          "leads": 5,
           "mqls": 0,
-          "cpm": 41.24,
-          "ctr": 0.01,
-          "cpl": 96.45,
+          "cpm": 39.12,
+          "ctr": 0.0099,
+          "cpl": 93.06,
           "txmql": 0.0,
           "cpmql": null,
           "melhor_estrutura": null,
@@ -1332,14 +1184,36 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28"
             }
           ],
-          "spend": 523.65,
-          "impr": 9324.0,
-          "clicks": 79.0,
+          "spend": 402.91,
+          "impr": 7134.0,
+          "clicks": 62.0,
           "leads": 3,
           "mqls": 0,
-          "cpm": 56.16,
-          "ctr": 0.0085,
-          "cpl": 174.55,
+          "cpm": 56.48,
+          "ctr": 0.0087,
+          "cpl": 134.3,
+          "txmql": 0.0,
+          "cpmql": null,
+          "melhor_estrutura": null,
+          "pior_estrutura": null
+        },
+        {
+          "anuncio": "EST25",
+          "n_estruturas": 1,
+          "estruturas": [
+            {
+              "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
+              "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28"
+            }
+          ],
+          "spend": 319.89,
+          "impr": 7305.0,
+          "clicks": 50.0,
+          "leads": 3,
+          "mqls": 0,
+          "cpm": 43.79,
+          "ctr": 0.0068,
+          "cpl": 106.63,
           "txmql": 0.0,
           "cpmql": null,
           "melhor_estrutura": null,
@@ -1354,13 +1228,13 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28"
             }
           ],
-          "spend": 455.22,
-          "impr": 10302.0,
-          "clicks": 82.0,
+          "spend": 308.85,
+          "impr": 7330.0,
+          "clicks": 63.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 44.19,
-          "ctr": 0.008,
+          "cpm": 42.14,
+          "ctr": 0.0086,
           "cpl": null,
           "txmql": null,
           "cpmql": null,
@@ -1376,12 +1250,12 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | 11 a 14"
             }
           ],
-          "spend": 425.09,
-          "impr": 10021.0,
-          "clicks": 115.0,
+          "spend": 302.42,
+          "impr": 7223.0,
+          "clicks": 83.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 42.42,
+          "cpm": 41.87,
           "ctr": 0.0115,
           "cpl": null,
           "txmql": null,
@@ -1398,36 +1272,14 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | 07 a 10"
             }
           ],
-          "spend": 425.03,
-          "impr": 11369.0,
-          "clicks": 200.0,
+          "spend": 299.78,
+          "impr": 9110.0,
+          "clicks": 176.0,
           "leads": 1,
           "mqls": 0,
-          "cpm": 37.38,
-          "ctr": 0.0176,
-          "cpl": 425.03,
-          "txmql": 0.0,
-          "cpmql": null,
-          "melhor_estrutura": null,
-          "pior_estrutura": null
-        },
-        {
-          "anuncio": "EST25",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
-              "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28"
-            }
-          ],
-          "spend": 380.07,
-          "impr": 8522.0,
-          "clicks": 57.0,
-          "leads": 3,
-          "mqls": 0,
-          "cpm": 44.6,
-          "ctr": 0.0067,
-          "cpl": 126.69,
+          "cpm": 32.91,
+          "ctr": 0.0193,
+          "cpl": 299.78,
           "txmql": 0.0,
           "cpmql": null,
           "melhor_estrutura": null,
@@ -1442,21 +1294,17 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28"
             }
           ],
-          "spend": 166.72,
-          "impr": 2733.0,
-          "clicks": 19.0,
-          "leads": 1,
-          "mqls": 1,
-          "cpm": 61.0,
-          "ctr": 0.007,
-          "cpl": 166.72,
-          "txmql": 1.0,
-          "cpmql": 166.72,
-          "melhor_estrutura": {
-            "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
-            "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28",
-            "cpmql": 166.72
-          },
+          "spend": 122.11,
+          "impr": 2129.0,
+          "clicks": 14.0,
+          "leads": 0,
+          "mqls": 0,
+          "cpm": 57.36,
+          "ctr": 0.0066,
+          "cpl": null,
+          "txmql": null,
+          "cpmql": null,
+          "melhor_estrutura": null,
           "pior_estrutura": null
         },
         {
@@ -1468,13 +1316,13 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28"
             }
           ],
-          "spend": 66.2,
-          "impr": 1693.0,
-          "clicks": 15.0,
+          "spend": 55.95,
+          "impr": 1502.0,
+          "clicks": 14.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 39.1,
-          "ctr": 0.0089,
+          "cpm": 37.25,
+          "ctr": 0.0093,
           "cpl": null,
           "txmql": null,
           "cpmql": null,
@@ -1490,13 +1338,13 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28"
             }
           ],
-          "spend": 15.26,
-          "impr": 301.0,
-          "clicks": 2.0,
+          "spend": 9.31,
+          "impr": 200.0,
+          "clicks": 1.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 50.7,
-          "ctr": 0.0066,
+          "cpm": 46.55,
+          "ctr": 0.005,
           "cpl": null,
           "txmql": null,
           "cpmql": null,
@@ -1512,81 +1360,15 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | EST21 a EST28"
             }
           ],
-          "spend": 4.94,
-          "impr": 72.0,
+          "spend": 3.31,
+          "impr": 45.0,
           "clicks": 1.0,
           "leads": 0,
           "mqls": 0,
-          "cpm": 68.61,
-          "ctr": 0.0139,
+          "cpm": 73.56,
+          "ctr": 0.0222,
           "cpl": null,
           "txmql": null,
-          "cpmql": null,
-          "melhor_estrutura": null,
-          "pior_estrutura": null
-        },
-        {
-          "anuncio": "(orgânico)",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "(orgânico)",
-              "conjunto": "(orgânico)"
-            }
-          ],
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "txmql": 0.0,
-          "cpmql": null,
-          "melhor_estrutura": null,
-          "pior_estrutura": null
-        },
-        {
-          "anuncio": "(sem anúncio)",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "a-proxima-carreira-47-out-d",
-              "conjunto": "api"
-            }
-          ],
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "txmql": 0.0,
-          "cpmql": null,
-          "melhor_estrutura": null,
-          "pior_estrutura": null
-        },
-        {
-          "anuncio": "{{ad.name}}",
-          "n_estruturas": 1,
-          "estruturas": [
-            {
-              "campanha": "{{campaign.name}}",
-              "conjunto": "{{adset.name}}"
-            }
-          ],
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "txmql": 0.0,
           "cpmql": null,
           "melhor_estrutura": null,
           "pior_estrutura": null
@@ -1596,36 +1378,23 @@
     "14d": {
       "label": "14 dias",
       "range": {
-        "start": "2026-10-04",
-        "end": "2026-10-17"
+        "start": "2026-10-05",
+        "end": "2026-10-18"
       },
       "totais": {
-        "spend": 9707.64,
-        "impr": 177243.0,
-        "clicks": 2038.0,
-        "leads": 95,
+        "spend": 9349.7,
+        "impr": 170423.0,
+        "clicks": 1948.0,
+        "leads": 93,
         "mqls": 7,
-        "cpm": 54.77,
-        "ctr": 0.0115,
-        "cpl": 102.19,
-        "convform": 0.0466,
-        "txmql": 0.0737,
-        "cpmql": 1386.81
+        "cpm": 54.86,
+        "ctr": 0.0114,
+        "cpl": 100.53,
+        "convform": 0.0477,
+        "txmql": 0.0753,
+        "cpmql": 1335.67
       },
       "serie_diaria": [
-        {
-          "d": "2026-10-04",
-          "spend": 357.94,
-          "impr": 6820.0,
-          "clicks": 90.0,
-          "leads": 2,
-          "mqls": 0,
-          "cpm": 52.48,
-          "ctr": 0.0132,
-          "cpl": 178.97,
-          "txmql": 0.0,
-          "cpmql": null
-        },
         {
           "d": "2026-10-05",
           "spend": 282.13,
@@ -1758,64 +1527,64 @@
         }
       ],
       "nota_saude": {
-        "nota": 9.2,
+        "nota": 7.5,
         "provisoria": true,
-        "classificacao": "Excelente",
+        "classificacao": "Saudável, com atenção",
         "motivo": "Nota provisória: sem dados suficientes para conversao_pagina, vendas.",
         "subnotas": {
           "aquisicao": 10.0,
           "conversao_pagina": null,
           "qualificacao": 10.0,
           "vendas": null,
-          "consistencia": 6.8,
+          "consistencia": 0.0,
           "confiabilidade_dados": 10.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "14 dias",
-        "periodo_range": "04/10/2026 a 17/10/2026",
-        "gasto": "R$ 9.707,64",
-        "cpm": "R$ 54,77",
+        "periodo_range": "05/10/2026 a 18/10/2026",
+        "gasto": "R$ 9.349,70",
+        "cpm": "R$ 54,86",
         "ctr": "1,1%",
         "connect_rate": "Não disponível",
         "conv_lp": "Não disponível",
-        "leads": "95",
-        "cpl": "R$ 102,19",
+        "leads": "93",
+        "cpl": "R$ 100,53",
         "mqls": "7",
-        "cpa_cpmql": "R$ 1.386,81",
+        "cpa_cpmql": "R$ 1.335,67",
         "vendas": "Não disponível",
         "faturamento": "Não disponível",
         "cac": "Não disponível",
         "roas": "Não disponível",
         "ticket_medio": "Não disponível",
-        "saude_funil": "9.2/10 — Excelente (provisória)"
+        "saude_funil": "7.5/10 — Saudável, com atenção (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 3040.89,
-          "impr": 68368.0,
-          "clicks": 710.0,
-          "leads": 17,
-          "mqls": 1,
-          "cpm": 44.48,
-          "ctr": 0.0104,
-          "cpl": 178.88,
-          "convform": 0.0239,
-          "txmql": 0.0588,
-          "cpmql": 3040.89
+          "spend": 2289.79,
+          "impr": 53872.0,
+          "clicks": 582.0,
+          "leads": 12,
+          "mqls": 0,
+          "cpm": 42.5,
+          "ctr": 0.0108,
+          "cpl": 190.82,
+          "convform": 0.0206,
+          "txmql": 0.0,
+          "cpmql": null
         },
         "14d": {
-          "spend": 9707.64,
-          "impr": 177243.0,
-          "clicks": 2038.0,
-          "leads": 95,
+          "spend": 9349.7,
+          "impr": 170423.0,
+          "clicks": 1948.0,
+          "leads": 93,
           "mqls": 7,
-          "cpm": 54.77,
-          "ctr": 0.0115,
-          "cpl": 102.19,
-          "convform": 0.0466,
-          "txmql": 0.0737,
-          "cpmql": 1386.81
+          "cpm": 54.86,
+          "ctr": 0.0114,
+          "cpl": 100.53,
+          "convform": 0.0477,
+          "txmql": 0.0753,
+          "cpmql": 1335.67
         },
         "30d": {
           "spend": 16824.94,
@@ -1832,56 +1601,56 @@
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-09-20",
-            "end": "2026-10-03"
+            "start": "2026-09-21",
+            "end": "2026-10-04"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
-            "spend": 7117.3,
-            "impr": 109283.0,
-            "clicks": 1391.0,
-            "leads": 44,
+            "spend": 7475.25,
+            "impr": 116103.0,
+            "clicks": 1481.0,
+            "leads": 46,
             "mqls": 0,
-            "cpm": 65.13,
-            "ctr": 0.0127,
-            "cpl": 161.76,
-            "convform": 0.0316,
+            "cpm": 64.38,
+            "ctr": 0.0128,
+            "cpl": 162.51,
+            "convform": 0.0311,
             "txmql": 0.0,
             "cpmql": null
           },
           "variacao": {
             "spend": {
-              "atual": 9707.640189,
-              "anterior": 7117.301826999999,
-              "delta_abs": 2590.3384,
-              "delta_pct": 0.3639,
+              "atual": 9349.696358,
+              "anterior": 7475.245658,
+              "delta_abs": 1874.4507,
+              "delta_pct": 0.2508,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "impr": {
-              "atual": 177243.0,
-              "anterior": 109283.0,
-              "delta_abs": 67960.0,
-              "delta_pct": 0.6219,
+              "atual": 170423.0,
+              "anterior": 116103.0,
+              "delta_abs": 54320.0,
+              "delta_pct": 0.4679,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "clicks": {
-              "atual": 2038.0,
-              "anterior": 1391.0,
-              "delta_abs": 647.0,
-              "delta_pct": 0.4651,
+              "atual": 1948.0,
+              "anterior": 1481.0,
+              "delta_abs": 467.0,
+              "delta_pct": 0.3153,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "leads": {
-              "atual": 95,
-              "anterior": 44,
-              "delta_abs": 51,
-              "delta_pct": 1.1591,
+              "atual": 93,
+              "anterior": 46,
+              "delta_abs": 47,
+              "delta_pct": 1.0217,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
@@ -1896,52 +1665,52 @@
               "material": false
             },
             "cpm": {
-              "atual": 54.77023176655778,
-              "anterior": 65.12725517235069,
-              "delta_abs": -10.357,
-              "delta_pct": -0.159,
+              "atual": 54.8617050398127,
+              "anterior": 64.3846038259132,
+              "delta_abs": -9.5229,
+              "delta_pct": -0.1479,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "ctr": {
-              "atual": 0.011498338439317773,
-              "anterior": 0.01272842070587374,
-              "delta_abs": -0.0012,
-              "delta_pct": -0.0966,
-              "delta_pp": -0.12,
+              "atual": 0.01143038204937127,
+              "anterior": 0.012755915006502846,
+              "delta_abs": -0.0013,
+              "delta_pct": -0.1039,
+              "delta_pp": -0.13,
               "direcao": "piorou",
               "material": false
             },
             "cpl": {
-              "atual": 102.18568619999999,
-              "anterior": 161.75685970454543,
-              "delta_abs": -59.5712,
-              "delta_pct": -0.3683,
+              "atual": 100.5343694408602,
+              "anterior": 162.50534039130434,
+              "delta_abs": -61.971,
+              "delta_pct": -0.3813,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "convform": {
-              "atual": 0.04661432777232581,
-              "anterior": 0.03163191948238677,
-              "delta_abs": 0.015,
-              "delta_pct": 0.4736,
-              "delta_pp": 1.5,
+              "atual": 0.047741273100616016,
+              "anterior": 0.031060094530722483,
+              "delta_abs": 0.0167,
+              "delta_pct": 0.5371,
+              "delta_pp": 1.67,
               "direcao": "melhorou",
               "material": false
             },
             "txmql": {
-              "atual": 0.07368421052631578,
+              "atual": 0.07526881720430108,
               "anterior": 0.0,
-              "delta_abs": 0.0737,
+              "delta_abs": 0.0753,
               "delta_pct": null,
-              "delta_pp": 7.37,
+              "delta_pp": 7.53,
               "direcao": "melhorou",
               "material": true
             },
             "cpmql": {
-              "atual": 1386.8057412857142,
+              "atual": 1335.6709082857142,
               "anterior": null,
               "delta_abs": null,
               "delta_pct": null,
@@ -1954,17 +1723,17 @@
       },
       "por_campanha": [
         {
-          "spend": 6998.88,
-          "impr": 140164.0,
-          "clicks": 1491.0,
-          "leads": 46,
+          "spend": 6640.94,
+          "impr": 133344.0,
+          "clicks": 1401.0,
+          "leads": 44,
           "mqls": 3,
-          "cpm": 49.93,
-          "ctr": 0.0106,
-          "cpl": 152.15,
-          "convform": 0.0309,
-          "txmql": 0.0652,
-          "cpmql": 2332.96,
+          "cpm": 49.8,
+          "ctr": 0.0105,
+          "cpl": 150.93,
+          "convform": 0.0314,
+          "txmql": 0.0682,
+          "cpmql": 2213.65,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos"
         },
         {
@@ -2070,30 +1839,30 @@
           "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D | EST21 a EST28"
         },
         {
-          "spend": 787.26,
-          "impr": 12564.0,
-          "clicks": 140.0,
+          "spend": 672.98,
+          "impr": 10394.0,
+          "clicks": 118.0,
           "leads": 2,
           "mqls": 0,
-          "cpm": 62.66,
-          "ctr": 0.0111,
-          "cpl": 393.63,
-          "convform": 0.0143,
+          "cpm": 64.75,
+          "ctr": 0.0114,
+          "cpl": 336.49,
+          "convform": 0.0169,
           "txmql": 0.0,
           "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
           "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D | 11 a 14"
         },
         {
-          "spend": 787.1,
-          "impr": 15861.0,
-          "clicks": 228.0,
+          "spend": 669.07,
+          "impr": 13111.0,
+          "clicks": 188.0,
           "leads": 7,
           "mqls": 0,
-          "cpm": 49.62,
-          "ctr": 0.0144,
-          "cpl": 112.44,
-          "convform": 0.0307,
+          "cpm": 51.03,
+          "ctr": 0.0143,
+          "cpl": 95.58,
+          "convform": 0.0372,
           "txmql": 0.0,
           "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
@@ -2160,21 +1929,6 @@
           "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | 11 a 14"
         },
         {
-          "spend": 453.97,
-          "impr": 6996.0,
-          "clicks": 92.0,
-          "leads": 3,
-          "mqls": 0,
-          "cpm": 64.89,
-          "ctr": 0.0132,
-          "cpl": 151.32,
-          "convform": 0.0326,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
-          "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D | 15 a 19"
-        },
-        {
           "spend": 446.73,
           "impr": 4313.0,
           "clicks": 72.0,
@@ -2203,6 +1957,21 @@
           "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-10-08 | Teste de paginas 02",
           "conjunto": "AUTO | ALL | 25 a 65 | BR | All in one | LP-F"
+        },
+        {
+          "spend": 328.33,
+          "impr": 5096.0,
+          "clicks": 64.0,
+          "leads": 1,
+          "mqls": 0,
+          "cpm": 64.43,
+          "ctr": 0.0126,
+          "cpl": 328.33,
+          "convform": 0.0156,
+          "txmql": 0.0,
+          "cpmql": null,
+          "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
+          "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D | 15 a 19"
         },
         {
           "spend": 292.96,
@@ -2312,15 +2081,15 @@
       ],
       "por_anuncio": [
         {
-          "spend": 787.26,
-          "impr": 12564.0,
-          "clicks": 140.0,
+          "spend": 672.98,
+          "impr": 10394.0,
+          "clicks": 118.0,
           "leads": 2,
           "mqls": 0,
-          "cpm": 62.66,
-          "ctr": 0.0111,
-          "cpl": 393.63,
-          "convform": 0.0143,
+          "cpm": 64.75,
+          "ctr": 0.0114,
+          "cpl": 336.49,
+          "convform": 0.0169,
           "txmql": 0.0,
           "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
@@ -2328,15 +2097,15 @@
           "anuncio": "VID12"
         },
         {
-          "spend": 787.1,
-          "impr": 15861.0,
-          "clicks": 228.0,
+          "spend": 669.07,
+          "impr": 13111.0,
+          "clicks": 188.0,
           "leads": 7,
           "mqls": 0,
-          "cpm": 49.62,
-          "ctr": 0.0144,
-          "cpl": 112.44,
-          "convform": 0.0307,
+          "cpm": 51.03,
+          "ctr": 0.0143,
+          "cpl": 95.58,
+          "convform": 0.0372,
           "txmql": 0.0,
           "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
@@ -2568,22 +2337,6 @@
           "anuncio": "VID07"
         },
         {
-          "spend": 281.41,
-          "impr": 4108.0,
-          "clicks": 51.0,
-          "leads": 1,
-          "mqls": 0,
-          "cpm": 68.5,
-          "ctr": 0.0124,
-          "cpl": 281.41,
-          "convform": 0.0196,
-          "txmql": 0.0,
-          "cpmql": null,
-          "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
-          "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D | 15 a 19",
-          "anuncio": "VID16"
-        },
-        {
           "spend": 255.2,
           "impr": 4887.0,
           "clicks": 50.0,
@@ -2648,15 +2401,31 @@
           "anuncio": "VID07"
         },
         {
-          "spend": 172.56,
-          "impr": 2888.0,
-          "clicks": 41.0,
-          "leads": 2,
+          "spend": 205.39,
+          "impr": 2964.0,
+          "clicks": 38.0,
+          "leads": 0,
           "mqls": 0,
-          "cpm": 59.75,
-          "ctr": 0.0142,
-          "cpl": 86.28,
-          "convform": 0.0488,
+          "cpm": 69.3,
+          "ctr": 0.0128,
+          "cpl": null,
+          "convform": 0.0,
+          "txmql": null,
+          "cpmql": null,
+          "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
+          "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D | 15 a 19",
+          "anuncio": "VID16"
+        },
+        {
+          "spend": 122.94,
+          "impr": 2132.0,
+          "clicks": 26.0,
+          "leads": 1,
+          "mqls": 0,
+          "cpm": 57.66,
+          "ctr": 0.0122,
+          "cpl": 122.94,
+          "convform": 0.0385,
           "txmql": 0.0,
           "cpmql": null,
           "campanha": "SS-OUT26 | E2-CAP | P1-QUENTE | VND | ABO | 2026-09-29 | Teste de criativos",
@@ -2882,14 +2651,14 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | Envolvimento 90D | LP-D"
             }
           ],
-          "spend": 3959.12,
-          "impr": 64968.0,
-          "clicks": 982.0,
+          "spend": 3841.09,
+          "impr": 62218.0,
+          "clicks": 942.0,
           "leads": 16,
           "mqls": 0,
-          "cpm": 60.94,
+          "cpm": 61.74,
           "ctr": 0.0151,
-          "cpl": 247.44,
+          "cpl": 240.07,
           "txmql": 0.0,
           "cpmql": null,
           "melhor_estrutura": null,
@@ -2908,14 +2677,14 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D2 | 11 a 14"
             }
           ],
-          "spend": 1250.51,
-          "impr": 23431.0,
-          "clicks": 263.0,
+          "spend": 1136.23,
+          "impr": 21261.0,
+          "clicks": 241.0,
           "leads": 2,
           "mqls": 0,
-          "cpm": 53.37,
-          "ctr": 0.0112,
-          "cpl": 625.25,
+          "cpm": 53.44,
+          "ctr": 0.0113,
+          "cpl": 568.12,
           "txmql": 0.0,
           "cpmql": null,
           "melhor_estrutura": null,
@@ -3072,15 +2841,15 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D | 15 a 19"
             }
           ],
-          "spend": 281.41,
-          "impr": 4108.0,
-          "clicks": 51.0,
-          "leads": 1,
+          "spend": 205.39,
+          "impr": 2964.0,
+          "clicks": 38.0,
+          "leads": 0,
           "mqls": 0,
-          "cpm": 68.5,
-          "ctr": 0.0124,
-          "cpl": 281.41,
-          "txmql": 0.0,
+          "cpm": 69.29,
+          "ctr": 0.0128,
+          "cpl": null,
+          "txmql": null,
           "cpmql": null,
           "melhor_estrutura": null,
           "pior_estrutura": null
@@ -3120,14 +2889,14 @@
               "conjunto": "AUTO | ALL | 25 a 65 | BR | All in One | LP-D | 15 a 19"
             }
           ],
-          "spend": 172.56,
-          "impr": 2888.0,
-          "clicks": 41.0,
-          "leads": 2,
+          "spend": 122.94,
+          "impr": 2132.0,
+          "clicks": 26.0,
+          "leads": 1,
           "mqls": 0,
-          "cpm": 59.75,
-          "ctr": 0.0142,
-          "cpl": 86.28,
+          "cpm": 57.66,
+          "ctr": 0.0122,
+          "cpl": 122.94,
           "txmql": 0.0,
           "cpmql": null,
           "melhor_estrutura": null,
@@ -3268,8 +3037,8 @@
     "30d": {
       "label": "30 dias",
       "range": {
-        "start": "2026-09-18",
-        "end": "2026-10-17"
+        "start": "2026-09-19",
+        "end": "2026-10-18"
       },
       "totais": {
         "spend": 16824.94,
@@ -3547,22 +3316,22 @@
         }
       ],
       "nota_saude": {
-        "nota": 9.2,
+        "nota": 7.5,
         "provisoria": true,
-        "classificacao": "Excelente",
+        "classificacao": "Saudável, com atenção",
         "motivo": "Nota provisória: sem dados suficientes para conversao_pagina, vendas.",
         "subnotas": {
           "aquisicao": 10.0,
           "conversao_pagina": null,
           "qualificacao": 10.0,
           "vendas": null,
-          "consistencia": 6.8,
+          "consistencia": 0.0,
           "confiabilidade_dados": 10.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "30 dias",
-        "periodo_range": "18/09/2026 a 17/10/2026",
+        "periodo_range": "19/09/2026 a 18/10/2026",
         "gasto": "R$ 16.824,94",
         "cpm": "R$ 58,72",
         "ctr": "1,2%",
@@ -3577,34 +3346,34 @@
         "cac": "Não disponível",
         "roas": "Não disponível",
         "ticket_medio": "Não disponível",
-        "saude_funil": "9.2/10 — Excelente (provisória)"
+        "saude_funil": "7.5/10 — Saudável, com atenção (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 3040.89,
-          "impr": 68368.0,
-          "clicks": 710.0,
-          "leads": 17,
-          "mqls": 1,
-          "cpm": 44.48,
-          "ctr": 0.0104,
-          "cpl": 178.88,
-          "convform": 0.0239,
-          "txmql": 0.0588,
-          "cpmql": 3040.89
+          "spend": 2289.79,
+          "impr": 53872.0,
+          "clicks": 582.0,
+          "leads": 12,
+          "mqls": 0,
+          "cpm": 42.5,
+          "ctr": 0.0108,
+          "cpl": 190.82,
+          "convform": 0.0206,
+          "txmql": 0.0,
+          "cpmql": null
         },
         "14d": {
-          "spend": 9707.64,
-          "impr": 177243.0,
-          "clicks": 2038.0,
-          "leads": 95,
+          "spend": 9349.7,
+          "impr": 170423.0,
+          "clicks": 1948.0,
+          "leads": 93,
           "mqls": 7,
-          "cpm": 54.77,
-          "ctr": 0.0115,
-          "cpl": 102.19,
-          "convform": 0.0466,
-          "txmql": 0.0737,
-          "cpmql": 1386.81
+          "cpm": 54.86,
+          "ctr": 0.0114,
+          "cpl": 100.53,
+          "convform": 0.0477,
+          "txmql": 0.0753,
+          "cpmql": 1335.67
         },
         "30d": {
           "spend": 16824.94,
@@ -3621,8 +3390,8 @@
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-08-19",
-            "end": "2026-09-17"
+            "start": "2026-08-20",
+            "end": "2026-09-18"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
@@ -7447,7 +7216,7 @@
       "label": "Este mês",
       "range": {
         "start": "2026-10-01",
-        "end": "2026-10-17"
+        "end": "2026-10-18"
       },
       "totais": {
         "spend": 13368.93,
@@ -7647,22 +7416,22 @@
         }
       ],
       "nota_saude": {
-        "nota": 9.2,
+        "nota": 7.5,
         "provisoria": true,
-        "classificacao": "Excelente",
+        "classificacao": "Saudável, com atenção",
         "motivo": "Nota provisória: sem dados suficientes para conversao_pagina, vendas.",
         "subnotas": {
           "aquisicao": 9.8,
           "conversao_pagina": null,
           "qualificacao": 10.0,
           "vendas": null,
-          "consistencia": 6.8,
+          "consistencia": 0.0,
           "confiabilidade_dados": 10.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "Este mês",
-        "periodo_range": "01/10/2026 a 17/10/2026",
+        "periodo_range": "01/10/2026 a 18/10/2026",
         "gasto": "R$ 13.368,93",
         "cpm": "R$ 59,33",
         "ctr": "1,2%",
@@ -7677,34 +7446,34 @@
         "cac": "Não disponível",
         "roas": "Não disponível",
         "ticket_medio": "Não disponível",
-        "saude_funil": "9.2/10 — Excelente (provisória)"
+        "saude_funil": "7.5/10 — Saudável, com atenção (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 3040.89,
-          "impr": 68368.0,
-          "clicks": 710.0,
-          "leads": 17,
-          "mqls": 1,
-          "cpm": 44.48,
-          "ctr": 0.0104,
-          "cpl": 178.88,
-          "convform": 0.0239,
-          "txmql": 0.0588,
-          "cpmql": 3040.89
+          "spend": 2289.79,
+          "impr": 53872.0,
+          "clicks": 582.0,
+          "leads": 12,
+          "mqls": 0,
+          "cpm": 42.5,
+          "ctr": 0.0108,
+          "cpl": 190.82,
+          "convform": 0.0206,
+          "txmql": 0.0,
+          "cpmql": null
         },
         "14d": {
-          "spend": 9707.64,
-          "impr": 177243.0,
-          "clicks": 2038.0,
-          "leads": 95,
+          "spend": 9349.7,
+          "impr": 170423.0,
+          "clicks": 1948.0,
+          "leads": 93,
           "mqls": 7,
-          "cpm": 54.77,
-          "ctr": 0.0115,
-          "cpl": 102.19,
-          "convform": 0.0466,
-          "txmql": 0.0737,
-          "cpmql": 1386.81
+          "cpm": 54.86,
+          "ctr": 0.0114,
+          "cpl": 100.53,
+          "convform": 0.0477,
+          "txmql": 0.0753,
+          "cpmql": 1335.67
         },
         "30d": {
           "spend": 16824.94,
@@ -7722,9 +7491,9 @@
         "periodo_anterior": {
           "range": {
             "start": "2026-09-01",
-            "end": "2026-09-17"
+            "end": "2026-09-18"
           },
-          "metodo": "mesmo intervalo de dias (1–17) do mês anterior",
+          "metodo": "mesmo intervalo de dias (1–18) do mês anterior",
           "totais": {
             "spend": 0.0,
             "impr": 0,
@@ -9520,16 +9289,16 @@
         }
       ],
       "nota_saude": {
-        "nota": 5.6,
+        "nota": 3.3,
         "provisoria": true,
-        "classificacao": "Atenção",
+        "classificacao": "Crítico",
         "motivo": "Nota provisória: sem dados suficientes para conversao_pagina, qualificacao, vendas.",
         "subnotas": {
           "aquisicao": 10.0,
           "conversao_pagina": null,
           "qualificacao": null,
           "vendas": null,
-          "consistencia": 6.8,
+          "consistencia": 0.0,
           "confiabilidade_dados": 0.0
         }
       },
@@ -9550,34 +9319,34 @@
         "cac": "Não disponível",
         "roas": "Não disponível",
         "ticket_medio": "Não disponível",
-        "saude_funil": "5.6/10 — Atenção (provisória)"
+        "saude_funil": "3.3/10 — Crítico (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 3040.89,
-          "impr": 68368.0,
-          "clicks": 710.0,
-          "leads": 17,
-          "mqls": 1,
-          "cpm": 44.48,
-          "ctr": 0.0104,
-          "cpl": 178.88,
-          "convform": 0.0239,
-          "txmql": 0.0588,
-          "cpmql": 3040.89
+          "spend": 2289.79,
+          "impr": 53872.0,
+          "clicks": 582.0,
+          "leads": 12,
+          "mqls": 0,
+          "cpm": 42.5,
+          "ctr": 0.0108,
+          "cpl": 190.82,
+          "convform": 0.0206,
+          "txmql": 0.0,
+          "cpmql": null
         },
         "14d": {
-          "spend": 9707.64,
-          "impr": 177243.0,
-          "clicks": 2038.0,
-          "leads": 95,
+          "spend": 9349.7,
+          "impr": 170423.0,
+          "clicks": 1948.0,
+          "leads": 93,
           "mqls": 7,
-          "cpm": 54.77,
-          "ctr": 0.0115,
-          "cpl": 102.19,
-          "convform": 0.0466,
-          "txmql": 0.0737,
-          "cpmql": 1386.81
+          "cpm": 54.86,
+          "ctr": 0.0114,
+          "cpl": 100.53,
+          "convform": 0.0477,
+          "txmql": 0.0753,
+          "cpmql": 1335.67
         },
         "30d": {
           "spend": 16824.94,
@@ -12394,7 +12163,7 @@
       "label": "Todo período",
       "range": {
         "start": "2026-09-24",
-        "end": "2026-10-16"
+        "end": "2026-10-17"
       },
       "totais": {
         "spend": 16824.94,
@@ -12672,22 +12441,22 @@
         }
       ],
       "nota_saude": {
-        "nota": 9.2,
+        "nota": 7.5,
         "provisoria": true,
-        "classificacao": "Excelente",
+        "classificacao": "Saudável, com atenção",
         "motivo": "Nota provisória: sem dados suficientes para conversao_pagina, vendas.",
         "subnotas": {
           "aquisicao": 10.0,
           "conversao_pagina": null,
           "qualificacao": 10.0,
           "vendas": null,
-          "consistencia": 6.8,
+          "consistencia": 0.0,
           "confiabilidade_dados": 10.0
         }
       },
       "whatsapp_numeros": {
         "periodo_label": "Todo período",
-        "periodo_range": "24/09/2026 a 16/10/2026",
+        "periodo_range": "24/09/2026 a 17/10/2026",
         "gasto": "R$ 16.824,94",
         "cpm": "R$ 58,72",
         "ctr": "1,2%",
@@ -12702,34 +12471,34 @@
         "cac": "Não disponível",
         "roas": "Não disponível",
         "ticket_medio": "Não disponível",
-        "saude_funil": "9.2/10 — Excelente (provisória)"
+        "saude_funil": "7.5/10 — Saudável, com atenção (provisória)"
       },
       "comparativos": {
         "7d": {
-          "spend": 3040.89,
-          "impr": 68368.0,
-          "clicks": 710.0,
-          "leads": 17,
-          "mqls": 1,
-          "cpm": 44.48,
-          "ctr": 0.0104,
-          "cpl": 178.88,
-          "convform": 0.0239,
-          "txmql": 0.0588,
-          "cpmql": 3040.89
+          "spend": 2289.79,
+          "impr": 53872.0,
+          "clicks": 582.0,
+          "leads": 12,
+          "mqls": 0,
+          "cpm": 42.5,
+          "ctr": 0.0108,
+          "cpl": 190.82,
+          "convform": 0.0206,
+          "txmql": 0.0,
+          "cpmql": null
         },
         "14d": {
-          "spend": 9707.64,
-          "impr": 177243.0,
-          "clicks": 2038.0,
-          "leads": 95,
+          "spend": 9349.7,
+          "impr": 170423.0,
+          "clicks": 1948.0,
+          "leads": 93,
           "mqls": 7,
-          "cpm": 54.77,
-          "ctr": 0.0115,
-          "cpl": 102.19,
-          "convform": 0.0466,
-          "txmql": 0.0737,
-          "cpmql": 1386.81
+          "cpm": 54.86,
+          "ctr": 0.0114,
+          "cpl": 100.53,
+          "convform": 0.0477,
+          "txmql": 0.0753,
+          "cpmql": 1335.67
         },
         "30d": {
           "spend": 16824.94,
@@ -12747,121 +12516,121 @@
         "periodo_anterior": {
           "range": {
             "start": "2026-09-24",
-            "end": "2026-10-04"
+            "end": "2026-10-05"
           },
           "metodo": "metade mais antiga do histórico vs. metade mais recente",
           "totais": {
-            "spend": 7475.25,
-            "impr": 116103.0,
-            "clicks": 1481.0,
-            "leads": 46,
-            "mqls": 0,
-            "cpm": 64.38,
-            "ctr": 0.0128,
-            "cpl": 162.51,
-            "convform": 0.0311,
-            "txmql": 0.0,
-            "cpmql": null
+            "spend": 7757.38,
+            "impr": 122074.0,
+            "clicks": 1555.0,
+            "leads": 52,
+            "mqls": 1,
+            "cpm": 63.55,
+            "ctr": 0.0127,
+            "cpl": 149.18,
+            "convform": 0.0334,
+            "txmql": 0.0192,
+            "cpmql": 7757.38
           },
           "variacao": {
             "spend": {
               "atual": 16824.942015999997,
-              "anterior": 7475.245658,
-              "delta_abs": 9349.6964,
-              "delta_pct": 1.2508,
+              "anterior": 7757.380647999999,
+              "delta_abs": 9067.5614,
+              "delta_pct": 1.1689,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "impr": {
               "atual": 286526.0,
-              "anterior": 116103.0,
-              "delta_abs": 170423.0,
-              "delta_pct": 1.4679,
+              "anterior": 122074.0,
+              "delta_abs": 164452.0,
+              "delta_pct": 1.3472,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "clicks": {
               "atual": 3429.0,
-              "anterior": 1481.0,
-              "delta_abs": 1948.0,
-              "delta_pct": 1.3153,
+              "anterior": 1555.0,
+              "delta_abs": 1874.0,
+              "delta_pct": 1.2051,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "leads": {
               "atual": 139,
-              "anterior": 46,
-              "delta_abs": 93,
-              "delta_pct": 2.0217,
+              "anterior": 52,
+              "delta_abs": 87,
+              "delta_pct": 1.6731,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "mqls": {
               "atual": 7,
-              "anterior": 0,
-              "delta_abs": 7,
-              "delta_pct": null,
+              "anterior": 1,
+              "delta_abs": 6,
+              "delta_pct": 6.0,
               "delta_pp": null,
               "direcao": "melhorou",
-              "material": false
+              "material": true
             },
             "cpm": {
               "atual": 58.72047219449543,
-              "anterior": 64.3846038259132,
-              "delta_abs": -5.6641,
-              "delta_pct": -0.088,
+              "anterior": 63.546542654455486,
+              "delta_abs": -4.8261,
+              "delta_pct": -0.0759,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": false
             },
             "ctr": {
               "atual": 0.011967500331558044,
-              "anterior": 0.012755915006502846,
+              "anterior": 0.012738175205203402,
               "delta_abs": -0.0008,
-              "delta_pct": -0.0618,
+              "delta_pct": -0.0605,
               "delta_pp": -0.08,
               "direcao": "piorou",
               "material": false
             },
             "cpl": {
               "atual": 121.04274831654675,
-              "anterior": 162.50534039130434,
-              "delta_abs": -41.4626,
-              "delta_pct": -0.2551,
+              "anterior": 149.18039707692307,
+              "delta_abs": -28.1376,
+              "delta_pct": -0.1886,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "convform": {
               "atual": 0.0405365995917177,
-              "anterior": 0.031060094530722483,
-              "delta_abs": 0.0095,
-              "delta_pct": 0.3051,
-              "delta_pp": 0.95,
+              "anterior": 0.033440514469453377,
+              "delta_abs": 0.0071,
+              "delta_pct": 0.2122,
+              "delta_pp": 0.71,
               "direcao": "melhorou",
               "material": false
             },
             "txmql": {
               "atual": 0.050359712230215826,
-              "anterior": 0.0,
-              "delta_abs": 0.0504,
-              "delta_pct": null,
-              "delta_pp": 5.04,
+              "anterior": 0.019230769230769232,
+              "delta_abs": 0.0311,
+              "delta_pct": 1.6187,
+              "delta_pp": 3.11,
               "direcao": "melhorou",
               "material": true
             },
             "cpmql": {
               "atual": 2403.5631451428567,
-              "anterior": null,
-              "delta_abs": null,
-              "delta_pct": null,
+              "anterior": 7757.380647999999,
+              "delta_abs": -5353.8175,
+              "delta_pct": -0.6902,
               "delta_pp": null,
-              "direcao": "sem_periodo_anterior",
-              "material": false
+              "direcao": "melhorou",
+              "material": true
             }
           }
         }
